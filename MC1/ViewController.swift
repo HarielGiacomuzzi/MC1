@@ -13,6 +13,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        CloudKitManager.SharedInstance.getProductsByCategory("cozinha") { (resultado) in
+            for produto in resultado{
+                print(produto["nome"])
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

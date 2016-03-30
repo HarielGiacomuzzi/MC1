@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB11911F1CAC39D900766057 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB11911E1CAC39D900766057 /* CloudKit.framework */; };
+		DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */; };
 		DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF041C9C59670094EE71 /* AppDelegate.swift */; };
 		DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF061C9C59670094EE71 /* ViewController.swift */; };
 		DB58BF0A1C9C59670094EE71 /* MC1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF081C9C59670094EE71 /* MC1.xcdatamodeld */; };
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB11911B1CAC36F500766057 /* MC1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MC1.entitlements; sourceTree = "<group>"; };
+		DB11911E1CAC39D900766057 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		DB58BF011C9C59670094EE71 /* MC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB58BF041C9C59670094EE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB58BF061C9C59670094EE71 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB11911F1CAC39D900766057 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,9 +80,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB24760F1CA9B50500E0B310 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		DB58BEF81C9C59670094EE71 = {
 			isa = PBXGroup;
 			children = (
+				DB11911E1CAC39D900766057 /* CloudKit.framework */,
 				DB58BF031C9C59670094EE71 /* MC1 */,
 				DB58BF181C9C59670094EE71 /* MC1Tests */,
 				DB58BF231C9C59670094EE71 /* MC1UITests */,
@@ -97,6 +112,8 @@
 		DB58BF031C9C59670094EE71 /* MC1 */ = {
 			isa = PBXGroup;
 			children = (
+				DB11911B1CAC36F500766057 /* MC1.entitlements */,
+				DB24760F1CA9B50500E0B310 /* Model */,
 				DB58BF041C9C59670094EE71 /* AppDelegate.swift */,
 				DB58BF061C9C59670094EE71 /* ViewController.swift */,
 				DB58BF0B1C9C59670094EE71 /* Main.storyboard */,
@@ -193,6 +210,12 @@
 				TargetAttributes = {
 					DB58BF001C9C59670094EE71 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = DVXNNDG4U4;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					DB58BF141C9C59670094EE71 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -257,6 +280,7 @@
 			files = (
 				DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */,
 				DB58BF0A1C9C59670094EE71 /* MC1.xcdatamodeld in Sources */,
+				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
 				DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,10 +414,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MC1/MC1.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MC1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giacomuzzi.MC1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -402,10 +430,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MC1/MC1.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MC1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giacomuzzi.MC1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -476,6 +508,7 @@
 				DB58BF2B1C9C59670094EE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB58BF2C1C9C59670094EE71 /* Build configuration list for PBXNativeTarget "MC1Tests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +517,7 @@
 				DB58BF2E1C9C59670094EE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB58BF2F1C9C59670094EE71 /* Build configuration list for PBXNativeTarget "MC1UITests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +526,7 @@
 				DB58BF311C9C59670094EE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
