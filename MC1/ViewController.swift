@@ -15,7 +15,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         CloudKitManager.SharedInstance.getProductsByCategory("cozinha") { (resultado) in
             for produto in resultado{
-                print(produto["nome"])
+                print(produto.name!)
+                print(produto.price!)
+                print(produto.category!)
+                print(produto.photos!)
             }
         }
     }

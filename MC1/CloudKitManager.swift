@@ -16,7 +16,7 @@ class CloudKitManager: NSObject {
     static let SharedInstance = CloudKitManager()
     
     // if the category is nil the default is the promotional category
-    func getProductsByCategory(category : String, completion : (NSArray -> Void)){
+    func getProductsByCategory(category : String, completion : ([Product] -> Void)){
         var ctg = category
         if ctg.isEmpty {
             ctg = "promotional"
@@ -29,7 +29,18 @@ class CloudKitManager: NSObject {
                 if let e = error {
                     print("\(e.localizedDescription)")
                 } else {
-                    completion(records!)
+                    var aux = [Product]()
+                    for i in records!{
+                        let prod = Product()
+                        prod.name = i.valueForKey("nome") as? String
+                        prod.price = i.valueForKey("preco") as? Double
+                        prod.desc = i.valueForKey("desc") as? String
+                        prod.category = i.valueForKey("categoria") as? String
+                        prod.video = i.valueForKey("video") as? String
+                        prod.photos = i.valueForKey("fotos") as? [String]
+                        aux.append(prod)
+                    }
+                    completion(aux)
                 }
         })
     }
