@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		DB11911F1CAC39D900766057 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB11911E1CAC39D900766057 /* CloudKit.framework */; };
 		DB1191211CAC5BE000766057 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191201CAC5BE000766057 /* Product.swift */; };
+		DB1191231CAC60C600766057 /* ShoppingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191221CAC60C600766057 /* ShoppingManager.swift */; };
+		DB1191251CAC64E400766057 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191241CAC64E400766057 /* Shop.swift */; };
 		DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */; };
 		DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF041C9C59670094EE71 /* AppDelegate.swift */; };
 		DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF061C9C59670094EE71 /* ViewController.swift */; };
@@ -40,6 +42,8 @@
 		DB11911B1CAC36F500766057 /* MC1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MC1.entitlements; sourceTree = "<group>"; };
 		DB11911E1CAC39D900766057 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		DB1191201CAC5BE000766057 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		DB1191221CAC60C600766057 /* ShoppingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingManager.swift; sourceTree = "<group>"; };
+		DB1191241CAC64E400766057 /* Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		DB58BF011C9C59670094EE71 /* MC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB58BF041C9C59670094EE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 			children = (
 				DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */,
 				DB1191201CAC5BE000766057 /* Product.swift */,
+				DB1191221CAC60C600766057 /* ShoppingManager.swift */,
+				DB1191241CAC64E400766057 /* Shop.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -285,7 +291,9 @@
 				DB58BF0A1C9C59670094EE71 /* MC1.xcdatamodeld in Sources */,
 				DB1191211CAC5BE000766057 /* Product.swift in Sources */,
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
+				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
 				DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */,
+				DB1191231CAC60C600766057 /* ShoppingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

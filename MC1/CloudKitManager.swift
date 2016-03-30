@@ -12,7 +12,9 @@ import Foundation
 class CloudKitManager: NSObject {
     
     let RECORD_TYPE_PRODUTOS = "Produto"
+    let RECORD_TYPE_COMPRA = "Compra"
     let publicDB: CKDatabase = CKContainer.defaultContainer().publicCloudDatabase
+    let privateDB: CKDatabase = CKContainer.defaultContainer().privateCloudDatabase
     static let SharedInstance = CloudKitManager()
     
     // if the category is nil the default is the promotional category
@@ -32,16 +34,22 @@ class CloudKitManager: NSObject {
                     var aux = [Product]()
                     for i in records!{
                         let prod = Product()
-                        prod.name = i.valueForKey("nome") as? String
-                        prod.price = i.valueForKey("preco") as? Double
-                        prod.desc = i.valueForKey("desc") as? String
-                        prod.category = i.valueForKey("categoria") as? String
-                        prod.video = i.valueForKey("video") as? String
-                        prod.photos = i.valueForKey("fotos") as? [String]
+                        prod.name = (i.valueForKey("nome") as? String)!
+                        prod.price = (i.valueForKey("preco") as? Double)!
+                        prod.desc = (i.valueForKey("desc") as? String)!
+                        prod.category = (i.valueForKey("categoria") as? String)!
+                        prod.video = (i.valueForKey("video") as? String)!
+                        prod.photos = (i.valueForKey("fotos") as? [String])!
+                        prod.productReference = CKReference(recordID: i.recordID, action: CKReferenceAction.None)
                         aux.append(prod)
                     }
                     completion(aux)
                 }
         })
+    }
+    
+    func saveNewShopping(shop : Shop) -> Bool{
+        
+        return true
     }
 }

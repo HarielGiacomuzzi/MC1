@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class Product: NSObject {
     var category : String?
@@ -15,4 +16,5 @@ class Product: NSObject {
     var name : String?
     var price : Double?
     var video : String?
+    var productReference : CKReference?
 }
