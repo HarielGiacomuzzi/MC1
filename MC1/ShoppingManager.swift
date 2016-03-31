@@ -9,13 +9,17 @@
 import Foundation
 
 class ShoppingManager: NSObject {
-    let sharedInstance : ShoppingManager = ShoppingManager()
     
-    func realizeNewShop(product : Product) -> Bool{
+    static let sharedInstance : ShoppingManager = ShoppingManager()
+    
+    func realizeNewShop(product : Product){
+//        let dateFormater = NSDateFormatter()
+//        dateFormater.timeZone = NSTimeZone.init(abbreviation: "UTC")
+//        dateFormater.defaultDate = NSDate()
         let aux = Shop()
         aux.product = product.productReference
         aux.date = NSDate()
         aux.processed = 1;
-        return CloudKitManager.SharedInstance.saveNewShopping(aux)
+        CloudKitManager.SharedInstance.saveNewShopping(aux)
     }
 }
