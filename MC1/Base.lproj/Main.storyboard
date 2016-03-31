@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,11 +16,80 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sZA-hf-jYs">
+                                <rect key="frame" x="80" y="70" width="1760" height="626"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="626" id="E21-6g-MLY"/>
+                                    <constraint firstAttribute="width" constant="1760" id="Izs-MR-EnP"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WPO-Rd-zJS">
+                                    <size key="itemSize" width="1393" height="720"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="highlightsCellId" id="rMu-F8-Tl2" customClass="HighlightCell" customModule="MC1" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-47" width="1393" height="720"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="1393" height="720"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="running" translatesAutoresizingMaskIntoConstraints="NO" id="frE-re-2ZK">
+                                                    <rect key="frame" x="8" y="8" width="1377" height="704"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="frE-re-2ZK" secondAttribute="bottom" id="7nI-vh-PtR"/>
+                                            <constraint firstItem="frE-re-2ZK" firstAttribute="leading" secondItem="rMu-F8-Tl2" secondAttribute="leadingMargin" id="JIZ-zr-Ll8"/>
+                                            <constraint firstItem="frE-re-2ZK" firstAttribute="top" secondItem="rMu-F8-Tl2" secondAttribute="topMargin" id="UI8-ST-yME"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="frE-re-2ZK" secondAttribute="trailing" id="Yai-o0-SGD"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="highlightProductImage" destination="frE-re-2ZK" id="jeu-Kz-6mb"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sZA-hf-jYs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="frf-o3-1CF"/>
+                            <constraint firstItem="sZA-hf-jYs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="70" id="lyW-Id-3cR"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="hlCollectionView" destination="sZA-hf-jYs" id="ea6-Zp-SaG"/>
+                        <segue destination="FDJ-HJ-aK4" kind="show" identifier="showProductVideo" id="GCW-mn-aDe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="842" y="575"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="v91-N3-4uf">
+            <objects>
+                <viewController id="FDJ-HJ-aK4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3wi-Y7-hmp"/>
+                        <viewControllerLayoutGuide type="bottom" id="KBl-oL-mze"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="agY-2R-jCl">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="amT-K6-oCC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2998" y="575"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="running" width="2000" height="1000"/>
+    </resources>
 </document>
