@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		844B30381CADAE1600BC74B3 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B30371CADAE1600BC74B3 /* ProductsViewController.swift */; };
+		844B303A1CADAEB700BC74B3 /* ProductPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B30391CADAEB700BC74B3 /* ProductPlayerViewController.swift */; };
 		DB11911F1CAC39D900766057 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB11911E1CAC39D900766057 /* CloudKit.framework */; };
 		DB1191211CAC5BE000766057 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191201CAC5BE000766057 /* Product.swift */; };
 		DB1191231CAC60C600766057 /* ShoppingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191221CAC60C600766057 /* ShoppingManager.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		844B30371CADAE1600BC74B3 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		844B30391CADAEB700BC74B3 /* ProductPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPlayerViewController.swift; sourceTree = "<group>"; };
 		DB11911B1CAC36F500766057 /* MC1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MC1.entitlements; sourceTree = "<group>"; };
 		DB11911E1CAC39D900766057 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		DB1191201CAC5BE000766057 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -95,8 +99,8 @@
 			children = (
 				DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */,
 				DB1191201CAC5BE000766057 /* Product.swift */,
-				DB1191221CAC60C600766057 /* ShoppingManager.swift */,
 				DB1191241CAC64E400766057 /* Shop.swift */,
+				DB1191221CAC60C600766057 /* ShoppingManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -126,15 +130,17 @@
 			isa = PBXGroup;
 			children = (
 				DB11911B1CAC36F500766057 /* MC1.entitlements */,
-				DB24760F1CA9B50500E0B310 /* Model */,
+				DB58BF101C9C59670094EE71 /* Info.plist */,
 				DB58BF041C9C59670094EE71 /* AppDelegate.swift */,
 				F257DA6A1CAD8C0900E194E8 /* HighlightCell.swift */,
-				DB58BF061C9C59670094EE71 /* ViewController.swift */,
 				F257DA6E1CAD8E2E00E194E8 /* HighlightsCollectionView.swift */,
-				DB58BF0B1C9C59670094EE71 /* Main.storyboard */,
+				844B30391CADAEB700BC74B3 /* ProductPlayerViewController.swift */,
+				844B30371CADAE1600BC74B3 /* ProductsViewController.swift */,
+				DB58BF061C9C59670094EE71 /* ViewController.swift */,
 				DB58BF0E1C9C59670094EE71 /* Assets.xcassets */,
-				DB58BF101C9C59670094EE71 /* Info.plist */,
+				DB58BF0B1C9C59670094EE71 /* Main.storyboard */,
 				DB58BF081C9C59670094EE71 /* MC1.xcdatamodeld */,
+				DB24760F1CA9B50500E0B310 /* Model */,
 			);
 			path = MC1;
 			sourceTree = "<group>";
@@ -296,7 +302,9 @@
 				DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */,
 				DB58BF0A1C9C59670094EE71 /* MC1.xcdatamodeld in Sources */,
 				DB1191211CAC5BE000766057 /* Product.swift in Sources */,
+				844B303A1CADAEB700BC74B3 /* ProductPlayerViewController.swift in Sources */,
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
+				844B30381CADAE1600BC74B3 /* ProductsViewController.swift in Sources */,
 				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
 				DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */,
 				F257DA6B1CAD8C0900E194E8 /* HighlightCell.swift in Sources */,
