@@ -21,6 +21,14 @@ class ProductPlayerViewController: AVPlayerViewController {
             parentViewController.view.addSubview(self.view)
             self.play()
         }
+        
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        //let swipeGestureRecognizerDirectionRawValue = UInt(UISwipeGestureRecognizerDirection.Up.rawValue + UISwipeGestureRecognizerDirection.Down.rawValue)
+        //let swipeGestureRecognizerDirection = UISwipeGestureRecognizerDirection.Up //UISwipeGestureRecognizerDirection(rawValue: swipeGestureRecognizerDirectionRawValue)
+        
+        swipeGestureRecognizer.direction = .Up
+        
+        self.view.addGestureRecognizer(swipeGestureRecognizer)
     }
     
     func play() {
@@ -29,5 +37,10 @@ class ProductPlayerViewController: AVPlayerViewController {
             self.player = AVPlayer(playerItem: AVPlayerItem(URL: url))
             self.player!.play()
         }
+    }
+    
+    func swiped(gestureRecognizer: UISwipeGestureRecognizer) {
+        print(gestureRecognizer.direction)
+        fatalError()
     }
 }
