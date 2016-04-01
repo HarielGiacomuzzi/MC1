@@ -13,4 +13,5 @@ class Shop: NSObject {
     var date : NSDate?
     var product : CKReference?
     var processed : Int?
+    var productName : String?
 }

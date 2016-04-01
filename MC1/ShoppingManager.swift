@@ -32,6 +32,7 @@ class ShoppingManager: NSObject {
                 aux.product = product.productReference
                 aux.date = NSDate()
                 aux.processed = 1;
+                aux.productName = product.name
                 CloudKitManager.SharedInstance.saveNewShopping(aux)
             }
         }
