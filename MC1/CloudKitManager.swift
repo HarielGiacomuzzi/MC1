@@ -48,8 +48,42 @@ class CloudKitManager: NSObject {
         })
     }
     
-    func saveNewShopping(shop : Shop) -> Bool{
+    func saveNewShopping(shop : Shop){
+        let record = CKRecord(recordType: RECORD_TYPE_COMPRA)
+        record["date"] = shop.date
+        record["processed"] = shop.processed
+        record["productReference"] = shop.product
+        privateDB.saveRecord(record) { (record, error) in
+            if let e = error {
+                print(e.localizedDescription)
+            }
+        }
+    }
+    
+    func loadShopHistory(startDate : NSDate, endDate : NSDate ,processed : Bool? ,completion : ([Shop] -> Void)){
+        var predicate = NSPredicate()
+        if processed != nil {
+            predicate = NSPredicate(format: "(date >= %@) AND (date <= %@) AND (processed == %i)", startDate, endDate, processed! ? 1 : 0)
+        }else{
+            predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", startDate, endDate)
+        }
         
-        return true
+        
+                let query = CKQuery(recordType: RECORD_TYPE_COMPRA, predicate: predicate)
+        privateDB.performQuery(query, inZoneWithID: nil, completionHandler:  { records, error in
+            if let e = error {
+                print("\(e.localizedDescription)")
+            } else {
+                var aux = [Shop]()
+                for i in records!{
+                    let item = Shop()
+                    item.date = i["date"] as? NSDate
+                    item.processed = i["processed"] as? Int
+                    item.product = i["productReference"] as? CKReference
+                    aux.append(item)
+                }
+                completion(aux)
+            }
+        })
     }
 }
