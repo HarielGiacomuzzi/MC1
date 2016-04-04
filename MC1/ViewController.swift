@@ -54,8 +54,6 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
           print("acabou decel")
             rebuildHighlightList()
         }
-        //print("acabou decel")
-        //rebuild itemsList
     }
     
     

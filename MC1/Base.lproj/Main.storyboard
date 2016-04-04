@@ -86,7 +86,7 @@
                                                     <rect key="frame" x="8" y="8" width="352" height="204"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODc-cy-4CZ">
-                                                    <rect key="frame" x="-28" y="130" width="424" height="58"/>
+                                                    <rect key="frame" x="-28" y="130" width="422" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Fitness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1j-2Q-CuT">
                                                             <rect key="frame" x="119" y="13" width="115" height="31"/>
@@ -107,7 +107,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="VeO-ot-seN" secondAttribute="trailing" id="0L0-SM-kQ5"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="VeO-ot-seN" secondAttribute="bottom" id="JvS-uz-sdV"/>
-                                            <constraint firstItem="ODc-cy-4CZ" firstAttribute="top" secondItem="VeO-ot-seN" secondAttribute="bottom" constant="-36" id="Mox-O6-rFz"/>
+                                            <constraint firstItem="ODc-cy-4CZ" firstAttribute="top" secondItem="VeO-ot-seN" secondAttribute="bottom" constant="-37" id="Mox-O6-rFz"/>
                                             <constraint firstItem="VeO-ot-seN" firstAttribute="top" secondItem="oyK-gS-YhI" secondAttribute="topMargin" id="jhQ-fD-Yiy"/>
                                             <constraint firstItem="VeO-ot-seN" firstAttribute="leading" secondItem="oyK-gS-YhI" secondAttribute="leadingMargin" id="kfk-7j-wIv"/>
                                             <constraint firstItem="ODc-cy-4CZ" firstAttribute="centerX" secondItem="VeO-ot-seN" secondAttribute="centerX" id="r4v-W8-seP"/>
