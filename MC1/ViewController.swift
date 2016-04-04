@@ -8,10 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    let reuseIdentifier = "highlightsCellId"
+class ViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    
+    let REUSE_INDENTIFIER_HIGHLIGHTS = "highlightsCellId"
+    let REUSE_IDENTIFIERS_CATEGORIES = "categoriesCellId"
+    
     @IBOutlet weak var hlCollectionView: UICollectionView!
+    @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,38 +24,71 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
             //ShoppingManager.sharedInstance.realizeNewShop(prods![0])
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 200, 0, 200)
-    }
-
+        
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if collectionView == hlCollectionView{
+            return 3 //size of highlights
+        }else{
+            return 4 //size of categories
+        }
+    }
+    
+    func buildInfiniteHighlightList(){
+        
+    }
+    
+    func rebuildHighlightList(){
+        
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        if scrollView.tag == 100{
+          print("acabou decel")
+            rebuildHighlightList()
+        }
+    }
+    
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = hlCollectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! HighlightCell
-        cell.highlightProductImage.image = UIImage(named: "running")
-        print(indexPath)
-        return cell
+        if collectionView == hlCollectionView{
+            let cell = hlCollectionView.dequeueReusableCellWithReuseIdentifier(REUSE_INDENTIFIER_HIGHLIGHTS, forIndexPath: indexPath) as! HighlightCollectionViewCell
+            cell.highlightProductImage.image = UIImage(named: "running")
+            return cell
+        }else{
+            let cell = categoriesCollectionView.dequeueReusableCellWithReuseIdentifier(REUSE_IDENTIFIERS_CATEGORIES, forIndexPath: indexPath) as! CategoriesCollectionViewCell
+            cell.categoryImage.image = UIImage(named: "cat_running")
+            return cell
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //vai para o video do produto
+    func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        
+        if collectionView == hlCollectionView{
+            if let prevCell = context.previouslyFocusedView as? HighlightCollectionViewCell {
+                prevCell.changeVisibilityNameView()
+            }
+            
+            if let nextCell = context.nextFocusedView as? HighlightCollectionViewCell {
+                nextCell.clipsToBounds = false
+                nextCell.changeVisibilityNameView()
+            }
+            
+        }else{
+            if let prevCell = context.previouslyFocusedView as? CategoriesCollectionViewCell {
+                prevCell.changeVisibilityNameView()
+            }
+            
+            if let nextCell = context.nextFocusedView as? CategoriesCollectionViewCell {
+                nextCell.clipsToBounds = false
+                nextCell.changeVisibilityNameView()
+            }
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        print(NSIndexPath)
-    }
+    
 }
-
