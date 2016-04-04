@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     let REUSE_INDENTIFIER_HIGHLIGHTS = "highlightsCellId"
     let REUSE_IDENTIFIERS_CATEGORIES = "categoriesCellId"
@@ -19,20 +19,13 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        CloudKitManager.SharedInstance.getProductsByCategory("cozinha") { (resultado) in
-            for produto in resultado{
-                print(produto.name!)
-                print(produto.price!)
-                print(produto.category!)
-                print(produto.photos!)
-            }
-        }
         
         categoriesCollectionView.delegate = self
         categoriesCollectionView.dataSource = self
         hlCollectionView.delegate = self
         hlCollectionView.dataSource = self
         
+        buildInfiniteHighlightList()
     }
         
     
@@ -44,9 +37,27 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
         }
     }
     
+    func buildInfiniteHighlightList(){
+        
+    }
+    
+    func rebuildHighlightList(){
+        
+    }
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        if scrollView.tag == 100{
+          print("acabou decel")
+            rebuildHighlightList()
+        }
+        //print("acabou decel")
+        //rebuild itemsList
+    }
+    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if collectionView == hlCollectionView{
@@ -83,4 +94,6 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
             }
         }
     }
+    
+    
 }

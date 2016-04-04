@@ -11,23 +11,28 @@ import UIKit
 class HighlightCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var highlightProductImage: UIImageView!
-    
+    @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productNameView: UIView!
     
+    
+    let gradient = CAGradientLayer()
+    
     override func awakeFromNib() {
-        productNameView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
         productNameView.hidden = true
         highlightProductImage.adjustsImageWhenAncestorFocused = true
         
     }
     
     func changeVisibilityNameView(){
+        //print(1)
+        //gradient.hidden = true
         if productNameView.hidden == false{
             productNameView.hidden = true
         }else{
             productNameView.hidden = false
         }
     }
+    
     
     
 }

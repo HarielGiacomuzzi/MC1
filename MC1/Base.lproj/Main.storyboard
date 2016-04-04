@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sZA-hf-jYs">
-                                <rect key="frame" x="80" y="62" width="1760" height="646"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sZA-hf-jYs">
+                                <rect key="frame" x="80" y="30" width="1760" height="646"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="50" minimumInteritemSpacing="50" id="WPO-Rd-zJS" customClass="CenterCellCollectionViewFlowLayout" customModule="MC1" customModuleProvider="target">
                                     <size key="itemSize" width="1393" height="626"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -36,18 +36,16 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="running" translatesAutoresizingMaskIntoConstraints="NO" id="frE-re-2ZK">
                                                     <rect key="frame" x="8" y="8" width="1377" height="626"/>
                                                 </imageView>
-                                                <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z6A-Wc-3pm">
-                                                    <rect key="frame" x="3" y="472" width="800" height="130"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Esteira Ergométrica Vitality" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-gM-epI">
-                                                            <rect key="frame" x="108" y="35" width="583" height="60"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="1" green="0.57789370890000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nmM-44-U7k" customClass="HighlightProductNameGradientView" customModule="MC1" customModuleProvider="target">
+                                                    <rect key="frame" x="3" y="394" width="456" height="208"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Esteira Ergométrica Vitality" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-gM-epI">
+                                                    <rect key="frame" x="55" y="380" width="278" height="214"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                    <color key="textColor" red="0.13725490196078433" green="0.27843137254901962" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -59,7 +57,8 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="highlightProductImage" destination="frE-re-2ZK" id="jeu-Kz-6mb"/>
-                                            <outlet property="productNameView" destination="z6A-Wc-3pm" id="Q2b-aE-8uL"/>
+                                            <outlet property="productNameLabel" destination="4BA-gM-epI" id="lpI-wN-n9H"/>
+                                            <outlet property="productNameView" destination="nmM-44-U7k" id="WoB-u3-JpH"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -92,7 +91,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Fitness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1j-2Q-CuT">
                                                             <rect key="frame" x="119" y="13" width="115" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="34"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -121,9 +120,9 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybc-QY-Rmd">
-                                <rect key="frame" x="106" y="710" width="187" height="44"/>
+                                <rect key="frame" x="106" y="702" width="187" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -133,7 +132,7 @@
                             <constraint firstItem="OHU-Hf-vco" firstAttribute="leading" secondItem="sZA-hf-jYs" secondAttribute="leading" id="c1f-zt-NOF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OHU-Hf-vco" secondAttribute="bottom" constant="62" id="fQU-vL-CGc"/>
                             <constraint firstItem="sZA-hf-jYs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="frf-o3-1CF"/>
-                            <constraint firstItem="sZA-hf-jYs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="62" id="lyW-Id-3cR"/>
+                            <constraint firstItem="sZA-hf-jYs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="lyW-Id-3cR"/>
                             <constraint firstItem="OHU-Hf-vco" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rht-qX-iX6"/>
                         </constraints>
                     </view>
