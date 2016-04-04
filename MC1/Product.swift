@@ -17,5 +17,6 @@ class Product: NSObject {
     var price : Double?
     var video : String?
     var highlight : Bool?
+    var highResImage : String?
     var productReference : CKReference?
 }

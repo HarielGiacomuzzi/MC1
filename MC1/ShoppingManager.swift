@@ -19,21 +19,34 @@ class ShoppingManager: NSObject {
     
     static let sharedInstance : ShoppingManager = ShoppingManager()
     
-    func realizeNewShop(product : Product){
-        CloudKitManager.SharedInstance.loadShopHistory(NSDate(), endDate: NSDate()-1, processed: nil) { (results) in
-            var controll = true
-            for shop in results{
-                if shop.product == product {
-                    controll = false
+    func realizeNewShop(product : Product, completionHandler : ((error :NSError?, shop :Shop?) -> Void)){
+        CloudKitManager.SharedInstance.loadShopHistory(NSDate(), endDate: NSDate()-1, processed: nil) { (results, error) in
+            if error != nil {
+                var controll = true
+                for shop in results!{
+                    if shop.product == product {
+                        controll = false
+                    }
                 }
-            }
-            if controll{
-                let aux = Shop()
-                aux.product = product.productReference
-                aux.date = NSDate()
-                aux.processed = 1;
-                aux.productName = product.name
-                CloudKitManager.SharedInstance.saveNewShopping(aux)
+                if controll{
+                    let aux = Shop()
+                    aux.product = product.productReference
+                    aux.date = NSDate()
+                    aux.processed = 1;
+                    aux.productName = product.name
+                    CloudKitManager.SharedInstance.saveNewShopping(aux, completionHandler:  {(error)in
+                        if error != nil{
+                            completionHandler(error: error,shop:  aux)
+                        }else{
+                            completionHandler(error: nil,shop:
+                                
+                                aux)
+                        }
+                    })
+                    
+                    }
+            }else{
+                // do error handling 
             }
         }
     }

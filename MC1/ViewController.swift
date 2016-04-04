@@ -18,7 +18,7 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
         // Do any additional setup after loading the view, typically from a nib.
         ViewManager.sharedInstance.activeView = self
         CloudKitManager.SharedInstance.getHighlightProducts { (prods) in
-            ShoppingManager.sharedInstance.realizeNewShop(prods[0])
+            //ShoppingManager.sharedInstance.realizeNewShop(prods![0])
         }
     }
 
