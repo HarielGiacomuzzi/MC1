@@ -402,7 +402,7 @@
 					};
 					DB58BF001C9C59670094EE71 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = TG2GQ698YY;
+						DevelopmentTeam = DVXNNDG4U4;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
