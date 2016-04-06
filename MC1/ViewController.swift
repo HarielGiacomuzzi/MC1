@@ -19,10 +19,13 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        ViewManager.sharedInstance.activeView = self
-        CloudKitManager.SharedInstance.getHighlightProducts { (prods) in
-            //ShoppingManager.sharedInstance.realizeNewShop(prods![0])
-        }
+        
+        categoriesCollectionView.delegate = self
+        categoriesCollectionView.dataSource = self
+        hlCollectionView.delegate = self
+        hlCollectionView.dataSource = self
+        
+        buildInfiniteHighlightList()
     }
         
     
