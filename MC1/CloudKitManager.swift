@@ -20,7 +20,7 @@ class CloudKitManager: NSObject {
     let privateDB: CKDatabase = CKContainer.defaultContainer().privateCloudDatabase
     static let SharedInstance = CloudKitManager()
     
-    func getProductsByCategory(category : String, completion : ([Product]?, NSError?) -> Void){
+    func getProductsByCategory(category : String, completion : ([Product]?, NSError? )-> Void){
             let queryCategory = CKQuery(recordType: self.RECORD_TYPE_PRODUTOS, predicate: NSPredicate(format: "categoria == %@", category))
         
             queryCategory.sortDescriptors = [NSSortDescriptor(key: "nome", ascending: true)]
@@ -65,7 +65,7 @@ class CloudKitManager: NSObject {
                     prod.price = (i.valueForKey("preco") as? Double)!
                     prod.desc = (i.valueForKey("desc") as? String)!
                     prod.category = (i.valueForKey("categoria") as? String)!
-                    //prod.video = (i.valueForKey("video") as? String)!
+                    prod.video = (i.valueForKey("video") as? String)!
                     prod.photos = (i.valueForKey("fotos") as? [String])!
                     prod.highlight = (i.valueForKey("destaque") as? Int)! == 1 ? true : false
                     prod.productReference = CKReference(recordID: i.recordID, action: CKReferenceAction.None)
@@ -76,7 +76,7 @@ class CloudKitManager: NSObject {
         })
     }
     
-    private func getProductsByID(prodReference : CKReference, completion : ((Product?, NSError?) -> Void)){
+    private func getProductsByID(prodReference : CKReference, completion : (Product?, NSError?) -> Void){
         let queryCategory = CKQuery(recordType: self.RECORD_TYPE_PRODUTOS, predicate: NSPredicate(value: true))
         publicDB.performQuery(queryCategory, inZoneWithID: nil, completionHandler: {records, error in
             if let e = error {
@@ -116,7 +116,7 @@ class CloudKitManager: NSObject {
         }
     }
     
-    func loadShopHistory(startDate : NSDate, endDate : NSDate ,processed : Bool? ,completion : (([Shop]?, NSError?) -> Void)){
+    func loadShopHistory(startDate : NSDate, endDate : NSDate ,processed : Bool? ,completion : ([Shop]?, NSError?) -> Void){
         var predicate = NSPredicate()
         if processed != nil {
             predicate = NSPredicate(format: "(date >= %@) AND (date <= %@) AND (processed == %i)", startDate, endDate, processed! ? 1 : 0)

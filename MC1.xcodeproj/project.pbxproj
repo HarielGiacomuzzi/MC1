@@ -22,6 +22,8 @@
 		DB1191211CAC5BE000766057 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191201CAC5BE000766057 /* Product.swift */; };
 		DB1191251CAC64E400766057 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191241CAC64E400766057 /* Shop.swift */; };
 		DB11917E1CAED00200766057 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB11917D1CAED00200766057 /* ViewManager.swift */; };
+		DB1191891CB41FCF00766057 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191881CB41FCF00766057 /* ProductsViewController.swift */; };
+		DB11918B1CB4313900766057 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB11918A1CB4313900766057 /* PlayerView.swift */; };
 		DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */; };
 		DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF041C9C59670094EE71 /* AppDelegate.swift */; };
 		DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF061C9C59670094EE71 /* ViewController.swift */; };
@@ -87,6 +89,8 @@
 		DB1191201CAC5BE000766057 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		DB1191241CAC64E400766057 /* Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		DB11917D1CAED00200766057 /* ViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
+		DB1191881CB41FCF00766057 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		DB11918A1CB4313900766057 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		DB58BF011C9C59670094EE71 /* MC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB58BF041C9C59670094EE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 				8479F4781CB41F0300883BE1 /* ShoppingManager.swift */,
 				DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */,
 				DB1191201CAC5BE000766057 /* Product.swift */,
+				DB1191221CAC60C600766057 /* ShoppingManager.swift */,
 				DB1191241CAC64E400766057 /* Shop.swift */,
 				DB11917D1CAED00200766057 /* ViewManager.swift */,
 			);
@@ -239,10 +244,12 @@
 				DB58BF101C9C59670094EE71 /* Info.plist */,
 				DB58BF041C9C59670094EE71 /* AppDelegate.swift */,
 				DB58BF061C9C59670094EE71 /* ViewController.swift */,
+				DB1191881CB41FCF00766057 /* ProductsViewController.swift */,
 				F257DA6A1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift */,
 				F257DA741CAF0E6200E194E8 /* HighlightProductNameGradientView.swift */,
 				F257DA701CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift */,
 				F257DA721CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift */,
+				DB11918A1CB4313900766057 /* PlayerView.swift */,
 				DB58BF0B1C9C59670094EE71 /* Main.storyboard */,
 				DB58BF081C9C59670094EE71 /* MC1.xcdatamodeld */,
 				DB24760F1CA9B50500E0B310 /* Model */,
@@ -526,11 +533,13 @@
 				DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */,
 				DB58BF0A1C9C59670094EE71 /* MC1.xcdatamodeld in Sources */,
 				DB11917E1CAED00200766057 /* ViewManager.swift in Sources */,
+				DB1191891CB41FCF00766057 /* ProductsViewController.swift in Sources */,
 				DB1191211CAC5BE000766057 /* Product.swift in Sources */,
 				F257DA711CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				F257DA751CAF0E6200E194E8 /* HighlightProductNameGradientView.swift in Sources */,
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
 				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
+				DB11918B1CB4313900766057 /* PlayerView.swift in Sources */,
 				DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */,
 				F257DA6B1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift in Sources */,
 				F257DA731CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift in Sources */,
