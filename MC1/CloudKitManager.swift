@@ -20,7 +20,7 @@ class CloudKitManager: NSObject {
     let privateDB: CKDatabase = CKContainer.defaultContainer().privateCloudDatabase
     static let SharedInstance = CloudKitManager()
     
-    func getProductsByCategory(category : String, completion : (([Product]?, NSError? )-> Void)){
+    func getProductsByCategory(category : String, completion : ([Product]?, NSError?) -> Void){
             let queryCategory = CKQuery(recordType: self.RECORD_TYPE_PRODUTOS, predicate: NSPredicate(format: "categoria == %@", category))
         
             queryCategory.sortDescriptors = [NSSortDescriptor(key: "nome", ascending: true)]
@@ -48,7 +48,7 @@ class CloudKitManager: NSObject {
         })
     }
     
-    func getHighlightProducts(completion : (([Product]?, NSError?) -> Void)){
+    func getHighlightProducts(completion : ([Product]?, NSError?) -> Void){
         let queryCategory = CKQuery(recordType: self.RECORD_TYPE_PRODUTOS, predicate: NSPredicate(format: "destaque == 1"))
         
         queryCategory.sortDescriptors = [NSSortDescriptor(key: "nome", ascending: true)]
@@ -65,7 +65,7 @@ class CloudKitManager: NSObject {
                     prod.price = (i.valueForKey("preco") as? Double)!
                     prod.desc = (i.valueForKey("desc") as? String)!
                     prod.category = (i.valueForKey("categoria") as? String)!
-                    prod.video = (i.valueForKey("video") as? String)!
+                    //prod.video = (i.valueForKey("video") as? String)!
                     prod.photos = (i.valueForKey("fotos") as? [String])!
                     prod.highlight = (i.valueForKey("destaque") as? Int)! == 1 ? true : false
                     prod.productReference = CKReference(recordID: i.recordID, action: CKReferenceAction.None)

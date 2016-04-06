@@ -15,7 +15,7 @@ class HighlightProductNameGradientView: UIView {
         gradient.frame = self.bounds
         gradient.colors = [UIColor.whiteColor().CGColor, UIColor.whiteColor().colorWithAlphaComponent(0).CGColor]
         gradient.startPoint = CGPointMake(0.0,0.0)
-        gradient.endPoint = CGPointMake(0.85,0.0)
+        gradient.endPoint = CGPointMake(1.0,0.0)
         self.layer.insertSublayer(gradient, atIndex: 0)
     }
     
