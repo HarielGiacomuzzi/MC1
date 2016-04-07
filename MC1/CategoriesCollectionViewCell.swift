@@ -12,10 +12,11 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var categoryNameView: UIView!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     
     override func awakeFromNib() {
-        categoryNameView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
-        categoryNameView.hidden = true
+        //categoryNameView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
+        //categoryNameView.hidden = true
         categoryImage.adjustsImageWhenAncestorFocused = true
         
         //resetAnimation()
@@ -46,6 +47,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     func resetAnimation(){
         categoryNameView.frame = CGRectMake(-28, 255, categoryNameView.frame.width, categoryNameView.frame.height)
     }
+    
     
     
 }
