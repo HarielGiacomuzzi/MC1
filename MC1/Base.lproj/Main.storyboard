@@ -18,34 +18,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sZA-hf-jYs">
-                                <rect key="frame" x="80" y="30" width="1760" height="646"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="50" minimumInteritemSpacing="50" id="WPO-Rd-zJS" customClass="CenterCellCollectionViewFlowLayout" customModule="MC1" customModuleProvider="target">
-                                    <size key="itemSize" width="1393" height="626"/>
+                                <rect key="frame" x="20" y="30" width="1920" height="646"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="40" minimumInteritemSpacing="40" id="WPO-Rd-zJS" customClass="CenterCellCollectionViewFlowLayout" customModule="MC1" customModuleProvider="target">
+                                    <size key="itemSize" width="1680" height="626"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="highlightsCellId" id="rMu-F8-Tl2" customClass="HighlightCollectionViewCell" customModule="MC1" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="10" width="1393" height="626"/>
+                                        <rect key="frame" x="0.0" y="10" width="1680" height="626"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="1393" height="626"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1680" height="626"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="running" translatesAutoresizingMaskIntoConstraints="NO" id="frE-re-2ZK">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frE-re-2ZK">
                                                     <rect key="frame" x="8" y="8" width="1377" height="626"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nmM-44-U7k" customClass="HighlightProductNameGradientView" customModule="MC1" customModuleProvider="target">
-                                                    <rect key="frame" x="3" y="394" width="456" height="208"/>
+                                                    <rect key="frame" x="0.0" y="26" width="800" height="574"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Esteira Ergométrica Vitality" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-gM-epI">
+                                                            <rect key="frame" x="40" y="449" width="750" height="135"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                            <color key="textColor" red="0.13725490196078433" green="0.27843137254901962" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Esteira Ergométrica Vitality" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-gM-epI">
-                                                    <rect key="frame" x="55" y="380" width="278" height="214"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                    <color key="textColor" red="0.13725490196078433" green="0.27843137254901962" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -86,7 +88,7 @@
                                                     <rect key="frame" x="8" y="8" width="352" height="204"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODc-cy-4CZ">
-                                                    <rect key="frame" x="-28" y="130" width="422" height="58"/>
+                                                    <rect key="frame" x="-28" y="255" width="422" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Fitness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1j-2Q-CuT">
                                                             <rect key="frame" x="119" y="13" width="115" height="31"/>
@@ -107,7 +109,6 @@
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="VeO-ot-seN" secondAttribute="trailing" id="0L0-SM-kQ5"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="VeO-ot-seN" secondAttribute="bottom" id="JvS-uz-sdV"/>
-                                            <constraint firstItem="ODc-cy-4CZ" firstAttribute="top" secondItem="VeO-ot-seN" secondAttribute="bottom" constant="-37" id="Mox-O6-rFz"/>
                                             <constraint firstItem="VeO-ot-seN" firstAttribute="top" secondItem="oyK-gS-YhI" secondAttribute="topMargin" id="jhQ-fD-Yiy"/>
                                             <constraint firstItem="VeO-ot-seN" firstAttribute="leading" secondItem="oyK-gS-YhI" secondAttribute="leadingMargin" id="kfk-7j-wIv"/>
                                             <constraint firstItem="ODc-cy-4CZ" firstAttribute="centerX" secondItem="VeO-ot-seN" secondAttribute="centerX" id="r4v-W8-seP"/>
@@ -128,8 +129,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OHU-Hf-vco" firstAttribute="trailing" secondItem="sZA-hf-jYs" secondAttribute="trailing" id="FfV-j5-SaJ"/>
-                            <constraint firstItem="OHU-Hf-vco" firstAttribute="leading" secondItem="sZA-hf-jYs" secondAttribute="leading" id="c1f-zt-NOF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OHU-Hf-vco" secondAttribute="bottom" constant="62" id="fQU-vL-CGc"/>
                             <constraint firstItem="sZA-hf-jYs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="frf-o3-1CF"/>
                             <constraint firstItem="sZA-hf-jYs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="lyW-Id-3cR"/>
@@ -251,6 +250,5 @@
     </scenes>
     <resources>
         <image name="cat_running" width="1536" height="1023"/>
-        <image name="running" width="2000" height="1000"/>
     </resources>
 </document>

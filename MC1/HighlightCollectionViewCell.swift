@@ -14,11 +14,9 @@ class HighlightCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productNameView: UIView!
     
-    
-    let gradient = CAGradientLayer()
-    
     override func awakeFromNib() {
         productNameView.hidden = true
+        //highlightProductImage.clipsToBounds = true
         highlightProductImage.adjustsImageWhenAncestorFocused = true
         
     }
