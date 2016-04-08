@@ -549,6 +549,7 @@
 				F257DA711CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				F257DA751CAF0E6200E194E8 /* HighlightProductNameGradientView.swift in Sources */,
 				DB1191C71CB5864100766057 /* detailsCell.swift in Sources */,
+				84ED10851CB6CE2D007DFEBE /* ShopHistoryViewController.swift in Sources */,
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
 				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
 				DB11918B1CB4313900766057 /* PlayerView.swift in Sources */,
