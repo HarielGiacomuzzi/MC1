@@ -13,12 +13,19 @@ class ShopHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     var products = [Product]()
     
     var tableView:UITableView!
-    var tableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+    
+    let tableViewFrame = CGRect(x: 143, y: 212, width: 1636, height: 868)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
+        let label = UILabel(frame: CGRect(x: 140, y: 77, width: 1199, height: 68))
+        label.font = UIFont(name: "Menlo", size: 57)
+        label.textColor = UIColor(red: 45/255, green: 91/255, blue: 148/255, alpha: 1)
+        label.text = "Historic"
+        self.view.addSubview(label)
+        
+        self.tableView = UITableView(frame: tableViewFrame, style: UITableViewStyle.Grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.view.addSubview(tableView)
@@ -41,14 +48,29 @@ class ShopHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10//return self.products.count
+        return self.products.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let tableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        let tableViewCell = UITableViewCell(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        tableViewCell.backgroundColor = UIColor.redColor()
-        return tableViewCell
+        
+        var tableViewCell = tableView.dequeueReusableCellWithIdentifier("cell")
+            
+        if tableViewCell == nil {
+            tableViewCell = ShopHistoryProductTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+        }
+        
+        if let tableViewCell = tableViewCell as? ShopHistoryProductTableViewCell {
+            
+            let product = self.products[indexPath.row]
+            
+            tableViewCell.awakeFromNib()
+            tableViewCell.label0.text = product.name
+            tableViewCell.label1.text = "Código " + arc4random().description
+            
+            return tableViewCell
+        }
+        
+        return UITableViewCell(frame: CGRect.zero)
     }
 
     /*
