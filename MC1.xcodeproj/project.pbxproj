@@ -24,6 +24,7 @@
 		DB11917E1CAED00200766057 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB11917D1CAED00200766057 /* ViewManager.swift */; };
 		DB1191891CB41FCF00766057 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191881CB41FCF00766057 /* ProductsViewController.swift */; };
 		DB11918B1CB4313900766057 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB11918A1CB4313900766057 /* PlayerView.swift */; };
+		DB1191C71CB5864100766057 /* detailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1191C61CB5864100766057 /* detailsCell.swift */; };
 		DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */; };
 		DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF041C9C59670094EE71 /* AppDelegate.swift */; };
 		DB58BF071C9C59670094EE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF061C9C59670094EE71 /* ViewController.swift */; };
@@ -92,6 +93,7 @@
 		DB11917D1CAED00200766057 /* ViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 		DB1191881CB41FCF00766057 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		DB11918A1CB4313900766057 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		DB1191C61CB5864100766057 /* detailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailsCell.swift; sourceTree = "<group>"; };
 		DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		DB58BF011C9C59670094EE71 /* MC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB58BF041C9C59670094EE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -207,9 +209,9 @@
 				8479F4781CB41F0300883BE1 /* ShoppingManager.swift */,
 				DB2476101CA9B52C00E0B310 /* CloudKitManager.swift */,
 				DB1191201CAC5BE000766057 /* Product.swift */,
-				DB1191221CAC60C600766057 /* ShoppingManager.swift */,
 				DB1191241CAC64E400766057 /* Shop.swift */,
 				DB11917D1CAED00200766057 /* ViewManager.swift */,
+				DB1191C61CB5864100766057 /* detailsCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -540,6 +542,7 @@
 				DB1191211CAC5BE000766057 /* Product.swift in Sources */,
 				F257DA711CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				F257DA751CAF0E6200E194E8 /* HighlightProductNameGradientView.swift in Sources */,
+				DB1191C71CB5864100766057 /* detailsCell.swift in Sources */,
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
 				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
 				DB11918B1CB4313900766057 /* PlayerView.swift in Sources */,

@@ -11,7 +11,7 @@ import UIKit
 class PlayerView: UIView {
 
     var areFocus = false
-    
+    var layerVideo : CALayer?
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

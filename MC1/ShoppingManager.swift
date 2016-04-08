@@ -21,7 +21,7 @@ class ShoppingManager: NSObject {
     
     func realizeNewShop(product : Product, completionHandler : ((error :NSError?, shop :Shop?) -> Void)){
         CloudKitManager.SharedInstance.loadShopHistory(NSDate(), endDate: NSDate()-1, processed: nil) { (results, error) in
-            if error != nil {
+            if error != nil && results != nil {
                 var controll = true
                 for shop in results!{
                     if shop.product == product {
@@ -46,7 +46,7 @@ class ShoppingManager: NSObject {
                     
                     }
             }else{
-                // do error handling 
+                completionHandler(error: error, shop: nil)
             }
         }
     }

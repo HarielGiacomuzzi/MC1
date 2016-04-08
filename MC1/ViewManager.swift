@@ -19,14 +19,16 @@ class ViewManager: NSObject {
     var activeView : UIViewController?
     private let messageView = UIView()
     
-    func displayErrorMessage(message : String, retry: (Void -> Void)){
+    func displayErrorMessage(message : String, retry: (Void -> Void)?){
         let alert = UIAlertController(title: "Oops :/", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(actionCancel)
-        let actionRetry = UIAlertAction(title: "Tentar Novamente", style: UIAlertActionStyle.Default) { (action) in
-            retry()
+        if retry != nil {
+            let actionRetry = UIAlertAction(title: "Tentar Novamente", style: UIAlertActionStyle.Default) { (action) in
+                retry!()
+            }
+            alert.addAction(actionRetry)
         }
-        alert.addAction(actionRetry)
         dispatch_async(dispatch_get_main_queue()) {
             ViewManager.sharedInstance.activeView!.presentViewController(alert, animated: true, completion: nil)
         }

@@ -8,39 +8,48 @@
 
 import UIKit
 import AVKit
+import MediaPlayer
 import AVFoundation
 
-class ProductsViewController: UIViewController {
+class ProductsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var playerLayer:AVPlayerLayer!
-    var isPlaying : Bool = true
-    var aux = true
+    private var playerLayer:AVPlayerLayer!
+    var categorySelected : String?
+    private var isPlaying : Bool = true
+    private var numberOfPhotos = 0
+    var actualProduct : Product?
+    private var playlist : [Product]!
+    private var playlistActive = false
+    private let playlistView = UIVisualEffectView()
     @IBOutlet var tittleLabel: UILabel!
     @IBOutlet var textView: UITextView!
     @IBOutlet var buyButton: UIButton!
     @IBOutlet var playerView: PlayerView!
     @IBOutlet var blurView: UIVisualEffectView!
-    
+    @IBOutlet var collectionView: UICollectionView!
+    private var imageView : UIImageView?
+    private var isFullScreen = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "https://apollo2.dl.playstation.net/cdn/UP3643/CUSA01608_00/FREE_CONTENTpybmPpILsFglhU1zQQYf/PREVIEW_GAMEPLAY_VIDEO_109467.mp4")
-        self.playerView.frame = self.view.frame
-        self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-        self.playerLayer.frame = self.playerView.frame
-        self.playerView.layer.addSublayer(self.playerLayer)
+        ViewManager.sharedInstance.activeView = self
         
-        let swipeRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
-        swipeRecognizerUp.direction = .Up
-        let swipeRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
-        swipeRecognizerDown.direction = .Down
-        self.view.addGestureRecognizer(swipeRecognizerUp)
-        self.view.addGestureRecognizer(swipeRecognizerDown)
-        
-//        self.playerLayer.player!.play()
         loadProducts()
+        
+        addSwipeControls()
      
+        createFocusGuide()
+        
+        self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
+        self.playlistView.effect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        self.view.addSubview(self.playlistView)
+        
+        self.collectionView.backgroundColor = UIColor.clearColor()
+        
+    }
+    
+    func createFocusGuide(){
         let firstFocusGuide = UIFocusGuide()
         self.view.addLayoutGuide(firstFocusGuide)
         firstFocusGuide.leftAnchor.constraintEqualToAnchor(self.tittleLabel.leftAnchor).active = true
@@ -51,52 +60,257 @@ class ProductsViewController: UIViewController {
         firstFocusGuide.preferredFocusedView = self.buyButton
     }
     
+    func addSwipeControls(){
+        let swipeRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
+        swipeRecognizerUp.direction = .Up
+        let swipeRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
+        swipeRecognizerDown.direction = .Down
+        self.view.addGestureRecognizer(swipeRecognizerUp)
+        self.view.addGestureRecognizer(swipeRecognizerDown)
+    }
+    
     func loadProducts(){
-        CloudKitManager.SharedInstance.getHighlightProducts { (resultado, erro) in
-            if erro == nil{
-                dispatch_async(dispatch_get_main_queue(), {
-                    let aux = resultado![0]
-                    self.textView.text = aux.desc!
-                    self.buyButton.titleLabel?.text = "R$ \(aux.price!)"
-                    self.tittleLabel.text = aux.name!
-                })
-            }
-            else{
-                print(erro?.localizedDescription)
+        if self.categorySelected != nil {
+            CloudKitManager.SharedInstance.getProductsByCategory(self.categorySelected!, completion: { (products, error) in
+                if error == nil{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.playlist = products!
+                        if self.actualProduct != nil {
+                            let url = NSURL(string: (self.actualProduct?.video)!)
+                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+                            self.playerView.layer.addSublayer(self.playerLayer)
+                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
+                        }else{
+                            self.actualProduct = self.playlist.first
+                            let url = NSURL(string: (self.actualProduct?.video)!)
+                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+                            self.playerView.layer.addSublayer(self.playerLayer)
+                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
+                        }
+                        self.playVideo()
+                        self.setFullScreen()
+                        self.setDetails()
+                        self.setNotificationCenter()
+                        self.setupPlaylistView()
+                    })
+                }
+                else{
+                    print(error?.localizedDescription)
+                }
+            })
+        }else{
+            CloudKitManager.SharedInstance.getHighlightProducts { (products, erro) in
+                if erro == nil{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.playlist = products!
+                        if self.actualProduct != nil {
+                            let url = NSURL(string: (self.actualProduct?.video)!)
+                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+                            self.playerView.layer.addSublayer(self.playerLayer)
+                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
+                        }else{
+                            self.actualProduct = self.playlist.first
+                            let url = NSURL(string: (self.actualProduct?.video)!)
+                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+                            self.playerView.layer.addSublayer(self.playerLayer)
+                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
+                        }
+                        self.playVideo()
+                        self.setFullScreen()
+                        self.setDetails()
+                        self.setNotificationCenter()
+                        self.setupPlaylistView()
+                    })
+                }
+                else{
+                    print(erro?.localizedDescription)
+                }
             }
         }
     }
     
-    override func pressesBegan(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
-        if isPlaying && self.playerView.areFocus {
-            self.playerLayer.player?.pause()
-            isPlaying = false
-            return
+    func setNotificationCenter(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playNextVideo), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerLayer.player?.currentItem)
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playNextVideo), name: MPMoviePlayerPlaybackDidFinishNotification, object: self.playerLayer.player?.currentItem)
+    }
+    
+    func setupPlaylistView(){
+        var i = 0
+        for item in self.playlist{
+            let aux = UIImageView(image: UIImage(data: NSData(contentsOfURL: NSURL(string: item.photos![0])!)!))
+            self.playlistView.addSubview(aux)
+            aux.frame = CGRect(x: CGFloat(220*i+20), y: 10, width: 200, height: self.playlistView.frame.height-20)
+            i += 1
         }
-        if !isPlaying && self.playerView.areFocus{
-            self.playerLayer.player?.play()
-            isPlaying = true
+    }
+    
+    @IBAction func buyButtonAction(sender: AnyObject) {
+        let retry : (NSError?, Shop?) -> Void = {error, shop in
+            if error == nil{
+                ViewManager.sharedInstance.notification("A compra do produto \(self.actualProduct?.name!) foi concluída com sucesso")
+            }else{
+                ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: { (error, shop) in
+                    if error == nil {
+                        print(error!.localizedDescription)
+                        ViewManager.sharedInstance.displayErrorMessage("Ooops\nA compra do produto \(self.actualProduct?.name!) não pode ser concluída.\n", retry: nil)
+                    }
+                })
+            }
         }
+        
+        let completion :(NSError?, Shop?) -> Void = {error,shop in
+            if error == nil {
+                ViewManager.sharedInstance.notification("A compra do produto \(self.actualProduct?.name!) foi concluída com sucesso")
+            }else {
+                print(error!.localizedDescription)
+                ViewManager.sharedInstance.displayErrorMessage("Ooops\nA compra do produto \(self.actualProduct?.name!) não pode ser concluída.\nDeseja tentar novamente ? ", retry: { Void in
+                    ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: retry)
+                })
+            }
+        
+        }
+        
+        ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: completion)
+    }
+    
+    override func pressesEnded(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
+        if self.playerView.frame != self.view.frame{
+            setFullScreen()
+        }else{
+            exitFullScreen()
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+            if isPlaying && self.playerView.areFocus {
+                pauseVideo()
+                isPlaying = false
+                return
+            }
+            if !isPlaying && self.playerView.areFocus{
+                playVideo()
+                isPlaying = true
+            }
+    }
+    
+    func setDetails(){
+        self.tittleLabel.text = self.actualProduct?.name
+        self.textView.text = self.actualProduct?.desc
+        self.buyButton.titleLabel?.text = "R$ \(self.actualProduct?.price!)"
+        self.numberOfPhotos = (self.actualProduct?.photos?.count)!
+        self.collectionView.reloadData()
+    }
+    
+    
+    //MARK:Video Controlls
+    func setFullScreen(){
+        self.playerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.collectionView.hidden = true
+        self.blurView.hidden = true
+        self.textView.hidden = true
+        self.buyButton.hidden = true
+        self.tittleLabel.hidden = true
+        if self.imageView != nil {
+            self.imageView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        }
+        self.isFullScreen = true
+    }
+    
+    func exitFullScreen(){
+        self.playerView.frame = CGRect(x: 746, y: 59, width: 1100, height: 525)
+        self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
+        self.collectionView.hidden = false
+        self.blurView.hidden = false
+        self.textView.hidden = false
+        self.buyButton.hidden = false
+        self.tittleLabel.hidden = false
+        if playlistActive{
+            UIView.animateWithDuration(2, animations: {
+                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
+            })
+            self.playlistActive = false
+        }
+        if self.imageView != nil {
+            self.imageView?.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
+        }
+        self.isFullScreen = false
+        self.updateFocusIfNeeded()
     }
     
     func swipedDown() {
-        self.playerView.frame = self.view.frame
-        self.playerLayer.frame = self.playerView.frame
+        if self.playerView.frame == self.view.frame && playlistActive {
+            UIView.animateWithDuration(2, animations: {
+                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
+            })
+            self.playlistActive = false
+        }
     }
     
     func swipedUp() {
-        if aux{
-            self.playerView.frame = CGRect(x: 850, y: 90, width: 1000, height: 554)
-            self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1000, height: 554)
-            self.updateFocusIfNeeded()
-            aux = false
-        }else{
-            self.playerView.frame = self.view.frame
-            self.playerLayer.frame = self.playerView.frame
-            aux = true
+        if self.playerView.frame == self.view.frame{
+            UIView.animateWithDuration(2, animations: {
+                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height-200, width: self.view.frame.width, height: 200)
+            })
+            self.playlistActive = true
         }
     }
-
+    
+    func playVideo(){
+        self.playerLayer.player?.play()
+    }
+    
+    func pauseVideo(){
+        self.playerLayer.player?.pause()
+    }
+    
+    @objc func playNextVideo(){
+        if self.isFullScreen && self.playlist.count != 0 {
+            self.actualProduct = self.playlist.first
+            let url = NSURL(string: (self.actualProduct?.video)!)
+            self.playerLayer = nil
+            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+            self.playlist.removeFirst()
+            playVideo()
+            setDetails()
+        }
+    }
+    
+    //MARK:CollectionView
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.numberOfPhotos
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! detailsCell
+        if self.actualProduct != nil {
+            let data = NSData(contentsOfURL: NSURL(string:
+                (self.actualProduct?.photos![indexPath.row])!)!)
+            cell.image.image = UIImage(data: data!)
+        }
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        pauseVideo()
+        if (context.nextFocusedIndexPath?.row) != nil {
+            if (context.nextFocusedIndexPath?.row) == 0{
+                self.imageView?.removeFromSuperview()
+                self.imageView = nil
+                return
+            }
+            let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (self.actualProduct?.photos![(context.nextFocusedIndexPath?.row)!])!)!)!)
+            if self.imageView != nil {
+                self.imageView?.image = image
+            }else {
+                self.imageView = UIImageView(image: image)
+                self.imageView!.frame = CGRect(x: 0, y: 0, width: self.playerView.frame.width, height: self.playerView.frame.height)
+                self.playerView.addSubview(self.imageView!)
+                }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
