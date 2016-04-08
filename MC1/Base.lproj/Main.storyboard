@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sZA-hf-jYs">
-                                <rect key="frame" x="20" y="30" width="1920" height="646"/>
+                                <rect key="frame" x="0.0" y="30" width="2000" height="646"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="30" minimumInteritemSpacing="30" id="WPO-Rd-zJS" customClass="CenterCellCollectionViewFlowLayout" customModule="MC1" customModuleProvider="target">
                                     <size key="itemSize" width="1680" height="626"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -134,7 +134,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OHU-Hf-vco" secondAttribute="bottom" constant="62" id="fQU-vL-CGc"/>
-                            <constraint firstItem="sZA-hf-jYs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="frf-o3-1CF"/>
+                            <constraint firstItem="sZA-hf-jYs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-25" id="frf-o3-1CF"/>
                             <constraint firstItem="sZA-hf-jYs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="lyW-Id-3cR"/>
                             <constraint firstItem="OHU-Hf-vco" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rht-qX-iX6"/>
                         </constraints>

@@ -22,6 +22,8 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     var categorySelected = "Fitness"
     var carouselTimer = NSTimer()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -152,4 +154,6 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
 //        productsVC.actualProduct = productSelected
 //        productsVC.categorySelected = categorySelected
     }
+    
+    
 }
