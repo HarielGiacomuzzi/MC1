@@ -146,13 +146,13 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
             categorySelected = CATEGORIES[indexPath.row]
         }
         print(indexPath.row)
-        //performSegueWithIdentifier("showProductVideo", sender: nil)
+        performSegueWithIdentifier("showProductVideo", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let productsVC = segue.destinationViewController as! ProductsViewController
-//        productsVC.actualProduct = productSelected
-//        productsVC.categorySelected = categorySelected
+        productsVC.actualProduct = productSelected
+        productsVC.categorySelected = categorySelected
     }
     
     
