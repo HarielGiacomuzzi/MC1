@@ -78,21 +78,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                 if error == nil{
                     dispatch_async(dispatch_get_main_queue(), {
                         self.playlist = products!
-                        if self.actualProduct != nil {
-                            let url = NSURL(string: (self.actualProduct?.video)!)
-                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-                            self.playerView.layer.addSublayer(self.playerLayer)
-                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
-                        }else{
-                            self.actualProduct = self.playlist.first
-                            let url = NSURL(string: (self.actualProduct?.video)!)
-                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-                            self.playerView.layer.addSublayer(self.playerLayer)
-                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
-                        }
-                        self.playVideo()
-                        self.setFullScreen()
-                        self.setDetails()
+                        self.InitPlay()
                         self.setNotificationCenter()
                         self.setupPlaylistView()
                     })
@@ -106,21 +92,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                 if erro == nil{
                     dispatch_async(dispatch_get_main_queue(), {
                         self.playlist = products!
-                        if self.actualProduct != nil {
-                            let url = NSURL(string: (self.actualProduct?.video)!)
-                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-                            self.playerView.layer.addSublayer(self.playerLayer)
-                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
-                        }else{
-                            self.actualProduct = self.playlist.first
-                            let url = NSURL(string: (self.actualProduct?.video)!)
-                            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-                            self.playerView.layer.addSublayer(self.playerLayer)
-                            self.playlist.removeAtIndex(self.playlist.indexOf(self.actualProduct!)!)
-                        }
-                        self.playVideo()
-                        self.setFullScreen()
-                        self.setDetails()
+                        self.InitPlay()
                         self.setNotificationCenter()
                         self.setupPlaylistView()
                     })
@@ -212,13 +184,13 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     
     func setFullScreen(){
-        self.playerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        self.playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.collectionView.hidden = true
         self.blurView.hidden = true
         self.textView.hidden = true
         self.buyButton.hidden = true
         self.tittleLabel.hidden = true
+        self.playerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         if self.imageView != nil {
             self.imageView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         }
@@ -226,7 +198,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func exitFullScreen(){
-        self.playerView.frame = CGRect(x: 746, y: 59, width: 1100, height: 525)
+        self.playerView.frame = CGRect(x: 750, y: 190, width: 1100, height: 525)
         self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
         self.collectionView.hidden = false
         self.blurView.hidden = false
@@ -245,6 +217,13 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         }
         self.isFullScreen = false
         self.updateFocusIfNeeded()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if !isFullScreen{
+            self.playerView.frame = CGRect(x: 750, y: 190, width: 1100, height: 525)
+            self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
+        }
     }
     
     func swipedDown() {
@@ -294,6 +273,19 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func pauseVideo(){
         self.playerLayer.player?.pause()
+    }
+    
+    func InitPlay(){
+        if self.playlist.count != 0 {
+            self.actualProduct = self.playlist.first
+            let url = NSURL(string: (self.actualProduct?.video)!)
+            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+            self.playerView.layer.addSublayer(self.playerLayer)
+            self.playlist.removeFirst()
+            playVideo()
+            setFullScreen()
+            setDetails()
+        }
     }
     
     @objc func playNextVideo(){
