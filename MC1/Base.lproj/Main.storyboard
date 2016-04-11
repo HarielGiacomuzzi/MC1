@@ -232,15 +232,66 @@
                                     <outlet property="delegate" destination="FDJ-HJ-aK4" id="TNL-vP-zWr"/>
                                 </connections>
                             </collectionView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cen-1l-wf7">
+                                <rect key="frame" x="0.0" y="1080" width="1920" height="300"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Aui-HG-h0X">
+                                    <rect key="frame" x="0.0" y="0.0" width="1920" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Qr-Ib-HnF">
+                                            <rect key="frame" x="8" y="8" width="1904" height="284"/>
+                                            <color key="backgroundColor" red="0.71738860709594743" green="0.78522450125407905" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5V3-hl-HI6">
+                                                <size key="itemSize" width="315" height="260"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="40" minY="10" maxX="40" maxY="10"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaylistCell" id="ooD-4f-OiP" customClass="PlaylistCollectionViewCell" customModule="MC1" customModuleProvider="target">
+                                                    <rect key="frame" x="40" y="12" width="315" height="260"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="260"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUp-hL-Qqi">
+                                                                <rect key="frame" x="8" y="8" width="299" height="244"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="JUp-hL-Qqi" secondAttribute="trailing" id="9kb-CC-Fwa"/>
+                                                        <constraint firstItem="JUp-hL-Qqi" firstAttribute="leading" secondItem="ooD-4f-OiP" secondAttribute="leadingMargin" id="aVu-De-u2e"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="JUp-hL-Qqi" secondAttribute="bottom" id="bJ8-Tm-ocs"/>
+                                                        <constraint firstItem="JUp-hL-Qqi" firstAttribute="top" secondItem="ooD-4f-OiP" secondAttribute="topMargin" id="xBi-u3-Fsy"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="image" destination="JUp-hL-Qqi" id="o5H-w3-FtP"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                            <connections>
+                                                <outlet property="dataSource" destination="FDJ-HJ-aK4" id="fJG-cj-flm"/>
+                                                <outlet property="delegate" destination="FDJ-HJ-aK4" id="rvX-VY-8Ww"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="blurView" destination="FuR-YL-my5" id="SHU-aI-UwY"/>
                         <outlet property="buyButton" destination="nCw-yt-Ssl" id="5Sk-h9-EWE"/>
                         <outlet property="collectionView" destination="Duk-Nl-4az" id="fXN-GH-QTF"/>
+                        <outlet property="collectionViewPlaylist" destination="9Qr-Ib-HnF" id="b0Q-4j-MfA"/>
                         <outlet property="playerView" destination="0Em-0p-dl3" id="DWw-Rl-8Pm"/>
                         <outlet property="textView" destination="8ql-6a-Jjf" id="0rF-4j-9gI"/>
                         <outlet property="tittleLabel" destination="w1L-hS-Prn" id="hhB-d9-Kh4"/>
+                        <outlet property="viewPlaylist" destination="Cen-1l-wf7" id="Mmf-kz-Jmi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amT-K6-oCC" userLabel="First Responder" sceneMemberID="firstResponder"/>

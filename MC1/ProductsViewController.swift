@@ -17,10 +17,10 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     var categorySelected : String?
     private var isPlaying : Bool = true
     private var numberOfPhotos = 0
+    private var playlistItems = 0
     var actualProduct : Product?
     private var playlist : [Product]!
     private var playlistActive = false
-    private let playlistView = UIVisualEffectView()
     @IBOutlet var tittleLabel: UILabel!
     @IBOutlet var textView: UITextView!
     @IBOutlet var buyButton: UIButton!
@@ -29,6 +29,10 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet var collectionView: UICollectionView!
     private var imageView : UIImageView?
     private var isFullScreen = true
+    @IBOutlet var viewPlaylist: UIView!
+    @IBOutlet var collectionViewPlaylist: UICollectionView!
+    private let videoFocusGuide = UIFocusGuide()
+    var originalImageFrame:CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +45,8 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
      
         createFocusGuide()
         
-        self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
-        self.playlistView.effect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-        self.view.addSubview(self.playlistView)
-        
         self.collectionView.backgroundColor = UIColor.clearColor()
-        
+        self.collectionViewPlaylist.backgroundColor = UIColor.clearColor()
     }
     
     func createFocusGuide(){
@@ -58,6 +58,9 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         firstFocusGuide.widthAnchor.constraintEqualToAnchor(self.tittleLabel.widthAnchor).active = true
         
         firstFocusGuide.preferredFocusedView = self.buyButton
+        
+        self.playerView.addLayoutGuide(videoFocusGuide)
+        self.videoFocusGuide.preferredFocusedView = self.collectionViewPlaylist
     }
     
     func addSwipeControls(){
@@ -128,20 +131,14 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             }
         }
     }
-    
+
     func setNotificationCenter(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playNextVideo), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerLayer.player?.currentItem)
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playNextVideo), name: MPMoviePlayerPlaybackDidFinishNotification, object: self.playerLayer.player?.currentItem)
     }
     
     func setupPlaylistView(){
-        var i = 0
-        for item in self.playlist{
-            let aux = UIImageView(image: UIImage(data: NSData(contentsOfURL: NSURL(string: item.photos![0])!)!))
-            self.playlistView.addSubview(aux)
-            aux.frame = CGRect(x: CGFloat(220*i+20), y: 10, width: 200, height: self.playlistView.frame.height-20)
-            i += 1
-        }
+        self.playlistItems = self.playlist!.count
+        self.collectionViewPlaylist.reloadData()
     }
     
     @IBAction func buyButtonAction(sender: AnyObject) {
@@ -203,6 +200,17 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     
     //MARK:Video Controlls
+    func setFullScreenImage(){
+        self.playerView.hidden =  true
+        self.blurView.hidden = true
+        self.textView.hidden = true
+        self.buyButton.hidden = true
+        self.tittleLabel.hidden = true
+        
+        self.isFullScreen = true
+    }
+    
+    
     func setFullScreen(){
         self.playerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -225,9 +233,10 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.textView.hidden = false
         self.buyButton.hidden = false
         self.tittleLabel.hidden = false
+        self.playerView.hidden = false
         if playlistActive{
             UIView.animateWithDuration(2, animations: {
-                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
+                self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 200)
             })
             self.playlistActive = false
         }
@@ -240,20 +249,43 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func swipedDown() {
         if self.playerView.frame == self.view.frame && playlistActive {
-            UIView.animateWithDuration(2, animations: {
-                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height+200, width: self.view.frame.width, height: 200)
+            TurnOffVideoFocusGuide()
+            UIView.animateWithDuration(1, animations: {
+                self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 300)
             })
             self.playlistActive = false
+            self.viewPlaylist.hidden = true
+            self.updateFocusIfNeeded()
         }
+        
     }
     
     func swipedUp() {
         if self.playerView.frame == self.view.frame{
-            UIView.animateWithDuration(2, animations: {
-                self.playlistView.frame = CGRect(x: 0, y: self.view.frame.height-200, width: self.view.frame.width, height: 200)
-            })
+            TurnOnVideoFocusGuide()
+            self.viewPlaylist.hidden = false
+            UIView.animateWithDuration(1, animations: {
+                self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height-300, width: self.view.frame.width, height: 300)
+                },completion:{(success) in
+                    print(self.viewPlaylist.frame)
+                })
             self.playlistActive = true
+            self.updateFocusIfNeeded()
         }
+    }
+    
+    func TurnOnVideoFocusGuide(){
+        videoFocusGuide.enabled = true
+        videoFocusGuide.leftAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
+        videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = true
+        videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = true
+    }
+
+    func TurnOffVideoFocusGuide(){
+        videoFocusGuide.enabled = false
+        videoFocusGuide.leftAnchor.constraintEqualToAnchor(self.view.topAnchor).active = false
+        videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = false
+        videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = false
     }
     
     func playVideo(){
@@ -278,36 +310,64 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     //MARK:CollectionView
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numberOfPhotos
+        if collectionView == self.collectionViewPlaylist {
+            return self.playlistItems
+        }else{
+            return self.numberOfPhotos
+        }
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! detailsCell
-        if self.actualProduct != nil {
-            let data = NSData(contentsOfURL: NSURL(string:
-                (self.actualProduct?.photos![indexPath.row])!)!)
-            cell.image.image = UIImage(data: data!)
+        if collectionView == self.collectionViewPlaylist{
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PlaylistCell", forIndexPath: indexPath) as! PlaylistCollectionViewCell
+            cell.image.image = UIImage(data: NSData(contentsOfURL: NSURL(string: self.playlist[indexPath.row].photos![0])!)!)
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! detailsCell
+            if self.actualProduct != nil {
+                let data = NSData(contentsOfURL: NSURL(string:
+                    (self.actualProduct?.photos![indexPath.row])!)!)
+                cell.image.image = UIImage(data: data!)
+            }
+            return cell
         }
-        return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        pauseVideo()
-        if (context.nextFocusedIndexPath?.row) != nil {
-            if (context.nextFocusedIndexPath?.row) == 0{
-                self.imageView?.removeFromSuperview()
-                self.imageView = nil
-                return
-            }
-            let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (self.actualProduct?.photos![(context.nextFocusedIndexPath?.row)!])!)!)!)
-            if self.imageView != nil {
-                self.imageView?.image = image
-            }else {
-                self.imageView = UIImageView(image: image)
-                self.imageView!.frame = CGRect(x: 0, y: 0, width: self.playerView.frame.width, height: self.playerView.frame.height)
-                self.playerView.addSubview(self.imageView!)
-                }
+    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        if context.nextFocusedView == self {
+print("next")
+        }else{
+            print("prev")
+        }
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionView == self.collectionView{
+        let cellFrame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
+        if imageView == nil{
+            let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (self.actualProduct?.photos![indexPath.row])!)!)!)
+            self.imageView = UIImageView(image: image)
+            let pointInSuperview = self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath))
+            self.imageView?.frame = cellFrame!
+            originalImageFrame = self.imageView?.frame
+            self.imageView?.frame.origin = pointInSuperview
+            UIView.animateWithDuration(0.5, animations: {
+                self.imageView!.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                },completion: { (sucess) in
+                    self.setFullScreenImage()
+            })
+            self.view.addSubview(self.imageView!)
+        }else{
+            UIView.animateWithDuration(0.5, animations: {
+                self.imageView!.frame = CGRectMake(self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).x,self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).y,self.originalImageFrame.width,self.originalImageFrame.height)
+                },completion: { (sucess) in
+                    self.imageView?.removeFromSuperview()
+                    self.imageView = nil
+                    self.exitFullScreen()
+            })
+        }
         }
     }
     
