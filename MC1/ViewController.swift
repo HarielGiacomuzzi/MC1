@@ -12,10 +12,18 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     
     let REUSE_INDENTIFIER_HIGHLIGHTS = "highlightsCellId"
     let REUSE_IDENTIFIERS_CATEGORIES = "categoriesCellId"
+    let CATEGORIES = ["Fitness","Brinquedos","Beleza","Cozinha","Games"]
     
     @IBOutlet weak var hlCollectionView: UICollectionView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
+    
     var highlightedProducts = [Product]()
+    var productSelected:Product!
+    var categorySelected = "Fitness"
+    var carouselTimer = NSTimer()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,6 +32,8 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
         hlCollectionView.dataSource = self
         categoriesCollectionView.delegate = self
         categoriesCollectionView.dataSource = self
+        
+        //carouselTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(ViewController.nextHlItem), userInfo: nil, repeats: true)
         
         ViewManager.sharedInstance.activeView = self
         
@@ -40,24 +50,25 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
                     self.highlightedProducts.appendContentsOf(self.highlightedProducts)
                     self.hlCollectionView.reloadData()
                     self.categoriesCollectionView.hidden = false
+                    self.hlCollectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: (self.highlightedProducts.count)/2, inSection: 0), atScrollPosition: .None, animated: false)
                     self.setNeedsFocusUpdate()
-
                 }
             }
         }
     }
     
+    func nextHlItem(){
+        let midPoint = CGPointMake(1900,hlCollectionView.frame.midY)
+        print(midPoint)
+        hlCollectionView.scrollToItemAtIndexPath(hlCollectionView.indexPathForItemAtPoint(midPoint)!, atScrollPosition: .None, animated: true)
+    }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == hlCollectionView{
             return highlightedProducts.count //size of highlights
         }else{
-            return 4 //size of categories
+            return CATEGORIES.count //size of categories
         }
-    }
-    
-    func growHighlightKist(){
-        
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -75,6 +86,7 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
             }
         }
     }
+    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if collectionView == hlCollectionView{
@@ -97,8 +109,8 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
             
         }else{
             let cell = categoriesCollectionView.dequeueReusableCellWithReuseIdentifier(REUSE_IDENTIFIERS_CATEGORIES, forIndexPath: indexPath) as! CategoriesCollectionViewCell
-            cell.categoryImage.image = UIImage(named: "cat_running")
-            
+            cell.categoryImage.image = UIImage(named: String(format: "category_%@",CATEGORIES[indexPath.row]))
+            cell.categoryNameLabel.text = CATEGORIES[indexPath.row]
             return cell
         }
     }
@@ -126,11 +138,22 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
         }
     }
     
-    //    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-    //        if cell.isKindOfClass(CategoriesCollectionViewCell){
-    //            (cell as! CategoriesCollectionViewCell).resetAnimation()
-    //            (cell as! CategoriesCollectionViewCell).animateToTop()
-    //        }
-    //    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionView == hlCollectionView{
+            productSelected = highlightedProducts[indexPath.row]
+            categorySelected = productSelected.category!
+        }else if collectionView == categoriesCollectionView{
+            categorySelected = CATEGORIES[indexPath.row]
+        }
+        print(indexPath.row)
+        //performSegueWithIdentifier("showProductVideo", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let productsVC = segue.destinationViewController as! ProductsViewController
+//        productsVC.actualProduct = productSelected
+//        productsVC.categorySelected = categorySelected
+    }
+    
     
 }
