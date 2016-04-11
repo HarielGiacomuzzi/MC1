@@ -149,6 +149,23 @@
             </objects>
             <point key="canvasLocation" x="842" y="562"/>
         </scene>
+        <!--Shop History View Controller-->
+        <scene sceneID="PJI-Pa-JXG">
+            <objects>
+                <viewController id="PD5-Ov-aRn" customClass="ShopHistoryViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zwF-TU-YfM"/>
+                        <viewControllerLayoutGuide type="bottom" id="wdN-vl-yBC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bwt-Je-LHO">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xl5-mu-BZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1748" y="-571"/>
+        </scene>
         <!--Products View Controller-->
         <scene sceneID="v91-N3-4uf">
             <objects>
