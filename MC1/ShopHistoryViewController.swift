@@ -47,6 +47,12 @@ class ShopHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.frame = tableViewFrame
+        self.tableView.rowHeight = 97
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.products.count
     }
