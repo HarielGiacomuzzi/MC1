@@ -12,7 +12,7 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     
     let REUSE_INDENTIFIER_HIGHLIGHTS = "highlightsCellId"
     let REUSE_IDENTIFIERS_CATEGORIES = "categoriesCellId"
-    let CATEGORIES = ["Fitness","Brinquedos","Beleza","Cozinha","Games"]
+    let CATEGORIES = ["Fitness","Brinquedos","Beleza","Cozinha","Jogos"]
     
     @IBOutlet weak var hlCollectionView: UICollectionView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!

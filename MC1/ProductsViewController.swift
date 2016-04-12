@@ -172,6 +172,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.tittleLabel.hidden = true
         self.viewPlaylist.hidden = true
         self.playerView.hidden = true
+        self.setNeedsFocusUpdate()
     }
     
     override func pressesEnded(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
@@ -250,7 +251,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.imageView?.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
         }
         self.isFullScreen = false
-        self.updateFocusIfNeeded()
+        self.setNeedsFocusUpdate()
     }
     
     override func viewDidLayoutSubviews() {
@@ -277,7 +278,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func swipedUp() {
-        if self.playerView.frame == self.view.frame{
+        if self.playerLayer.frame == self.view.frame{
             TurnOnVideoFocusGuide()
             self.viewPlaylist.hidden = false
             UIView.animateWithDuration(1, animations: {
