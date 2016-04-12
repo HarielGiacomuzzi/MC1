@@ -32,7 +32,9 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet var viewPlaylist: UIView!
     @IBOutlet var collectionViewPlaylist: UICollectionView!
     private let videoFocusGuide = UIFocusGuide()
+    private let backFromPlaylistFocusGuide = UIFocusGuide()
     var originalImageFrame:CGRect!
+    @IBOutlet var loaderIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +46,12 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         addSwipeControls()
      
         createFocusGuide()
+        TurnOffVideoFocusGuide()
         
         self.collectionView.backgroundColor = UIColor.clearColor()
         self.collectionViewPlaylist.backgroundColor = UIColor.clearColor()
+        
+        initialLoad()
     }
     
     func createFocusGuide(){
@@ -60,6 +65,17 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         firstFocusGuide.preferredFocusedView = self.buyButton
         
         self.playerView.addLayoutGuide(videoFocusGuide)
+        videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = true
+        videoFocusGuide.bottomAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
+        videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = true
+        
+        self.playerView.addLayoutGuide(backFromPlaylistFocusGuide)
+        backFromPlaylistFocusGuide.heightAnchor.constraintEqualToConstant(100).active = true
+        backFromPlaylistFocusGuide.topAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
+        backFromPlaylistFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = true
+
+        
+        self.backFromPlaylistFocusGuide.preferredFocusedView = self.playerView
         self.videoFocusGuide.preferredFocusedView = self.collectionViewPlaylist
     }
     
@@ -70,6 +86,16 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         swipeRecognizerDown.direction = .Down
         self.view.addGestureRecognizer(swipeRecognizerUp)
         self.view.addGestureRecognizer(swipeRecognizerDown)
+    }
+    
+    func initialLoad(){
+        self.collectionView.hidden = true
+        self.blurView.hidden = true
+        self.textView.hidden = true
+        self.buyButton.hidden = true
+        self.tittleLabel.hidden = true
+        self.viewPlaylist.hidden = true
+        self.playerView.hidden = true
     }
     
     func loadProducts(){
@@ -189,6 +215,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.textView.hidden = true
         self.buyButton.hidden = true
         self.tittleLabel.hidden = true
+        self.viewPlaylist.hidden = true
         self.playerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         if self.imageView != nil {
@@ -211,6 +238,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                 self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 200)
             })
             self.playlistActive = false
+            self.viewPlaylist.hidden = true
         }
         if self.imageView != nil {
             self.imageView?.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
@@ -224,13 +252,16 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.playerView.frame = CGRect(x: 750, y: 190, width: 1100, height: 525)
             self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
         }
+        if playlistActive{
+            self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height-300, width: self.view.frame.width, height: 300)
+        }
     }
     
     func swipedDown() {
         if self.playerView.frame == self.view.frame && playlistActive {
             TurnOffVideoFocusGuide()
-            UIView.animateWithDuration(1, animations: {
-                self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 300)
+            UIView.animateWithDuration(2, animations: {
+                self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 200)
             })
             self.playlistActive = false
             self.viewPlaylist.hidden = true
@@ -255,16 +286,12 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func TurnOnVideoFocusGuide(){
         videoFocusGuide.enabled = true
-        videoFocusGuide.leftAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
-        videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = true
-        videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = true
+        backFromPlaylistFocusGuide.enabled = true
     }
 
     func TurnOffVideoFocusGuide(){
         videoFocusGuide.enabled = false
-        videoFocusGuide.leftAnchor.constraintEqualToAnchor(self.view.topAnchor).active = false
-        videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = false
-        videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = false
+        backFromPlaylistFocusGuide.enabled = false
     }
     
     func playVideo(){
@@ -282,9 +309,11 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
             self.playerView.layer.addSublayer(self.playerLayer)
             self.playlist.removeFirst()
+            self.playerView.hidden = false
             playVideo()
             setFullScreen()
             setDetails()
+            self.loaderIndicator.stopAnimating()
         }
     }
     
@@ -325,15 +354,6 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             return cell
         }
     }
-    
-    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        if context.nextFocusedView == self {
-print("next")
-        }else{
-            print("prev")
-        }
-    }
-    
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == self.collectionView{

@@ -302,13 +302,21 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Xws-cO-Wpx">
+                                <rect key="frame" x="962" y="547" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="Xws-cO-Wpx" firstAttribute="centerY" secondItem="agY-2R-jCl" secondAttribute="centerY" id="fBa-VO-4VO"/>
+                            <constraint firstItem="Xws-cO-Wpx" firstAttribute="centerX" secondItem="agY-2R-jCl" secondAttribute="centerX" id="ut9-cg-7Zl"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="blurView" destination="FuR-YL-my5" id="SHU-aI-UwY"/>
                         <outlet property="buyButton" destination="nCw-yt-Ssl" id="5Sk-h9-EWE"/>
                         <outlet property="collectionView" destination="Duk-Nl-4az" id="fXN-GH-QTF"/>
                         <outlet property="collectionViewPlaylist" destination="9Qr-Ib-HnF" id="b0Q-4j-MfA"/>
+                        <outlet property="loaderIndicator" destination="Xws-cO-Wpx" id="ZPy-qY-YxO"/>
                         <outlet property="playerView" destination="0Em-0p-dl3" id="DWw-Rl-8Pm"/>
                         <outlet property="textView" destination="8ql-6a-Jjf" id="0rF-4j-9gI"/>
                         <outlet property="tittleLabel" destination="w1L-hS-Prn" id="hhB-d9-Kh4"/>
