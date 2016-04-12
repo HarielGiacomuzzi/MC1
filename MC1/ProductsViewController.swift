@@ -52,11 +52,13 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         addSwipeControls()
         
         createFocusGuide()
+        
         TurnOffVideoFocusGuide()
         
         self.collectionView.backgroundColor = UIColor.clearColor()
         self.collectionViewPlaylist.backgroundColor = UIColor.clearColor()
         
+        //setFullScreen()
         initialLoad()
     }
     
@@ -85,6 +87,11 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.videoFocusGuide.preferredFocusedView = self.collectionViewPlaylist
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        pauseVideo()
+    }
+    
     func addSwipeControls(){
         let swipeRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
         swipeRecognizerUp.direction = .Up
@@ -99,6 +106,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         CloudKitManager.SharedInstance.getProductsByCategory(self.categorySelected!, completion: { (products, error) in
             if error == nil{
                 self.playlist = products
+                print(String(format: "Number of items fetched: %d",self.playlist.count))
                 if self.actualProduct != nil{
                     self.playlist.removeAtIndex(self.playlist.indexOf({$0.name == self.actualProduct!.name})!)
                     self.playlist.insert(self.actualProduct!, atIndex: 0)
@@ -151,6 +159,16 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         }
         
         ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: completion)
+    }
+    
+    func initialLoad(){
+        self.collectionView.hidden = true
+        self.blurView.hidden = true
+        self.textView.hidden = true
+        self.buyButton.hidden = true
+        self.tittleLabel.hidden = true
+        self.viewPlaylist.hidden = true
+        self.playerView.hidden = true
     }
     
     override func pressesEnded(presses: Set<UIPress>, withEvent event: UIPressesEvent?) {
@@ -303,6 +321,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
             self.playerView.layer.addSublayer(self.playerLayer)
             self.setNotificationCenter()
+            playerView.hidden = false
             playVideo()
             setFullScreen()
             setDetails()
@@ -368,9 +387,11 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                         self.exitFullScreen()
                 })
             }
-        }
+        
         }else if collectionView == self.collectionViewPlaylist{
-            self.playNextVideo((collectionView.cellForItemAtIndexPath(indexPath) as! PlaylistCollectionViewCell).product)
+            self.playlistIndex = indexPath.row
+            self.initPlay()
+            //self.playNextVideo((collectionView.cellForItemAtIndexPath(indexPath) as! PlaylistCollectionViewCell).product)
         }
     }
     
