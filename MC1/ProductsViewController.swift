@@ -133,6 +133,8 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func buyButtonAction(sender: AnyObject) {
+        buyButton.enabled = false
+        self.setNeedsFocusUpdate()
         let retry : (NSError?, Shop?) -> Void = {error, shop in
             if error == nil{
                 ViewManager.sharedInstance.notification(String(format: "A compra do produto %@ foi concluída com sucesso",self.actualProduct!.name!))
@@ -149,6 +151,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         let completion :(NSError?, Shop?) -> Void = {error,shop in
             if error == nil {
                 ViewManager.sharedInstance.notification(String(format: "A compra do produto %@ foi concluída com sucesso",self.actualProduct!.name!))
+                self.buyButton.enabled = true
             }else {
                 print(error!.localizedDescription)
                 ViewManager.sharedInstance.displayErrorMessage(String(format:"Ooops\nA compra do produto %@ não pode ser concluída.",self.actualProduct!.name!), retry: { Void in
