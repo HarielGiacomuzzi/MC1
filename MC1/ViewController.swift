@@ -141,11 +141,13 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == hlCollectionView{
             productSelected = highlightedProducts[indexPath.row]
-            categorySelected = productSelected.category!
+            categorySelected = productSelected.category!.lowercaseString
+            print(productSelected.video)
+            print(productSelected.name)
         }else if collectionView == categoriesCollectionView{
-            categorySelected = CATEGORIES[indexPath.row]
+            categorySelected = CATEGORIES[indexPath.row].lowercaseString
         }
-        print(indexPath.row)
+        
         performSegueWithIdentifier("showProductVideo", sender: nil)
     }
     

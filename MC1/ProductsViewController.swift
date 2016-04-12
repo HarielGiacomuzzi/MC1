@@ -33,16 +33,22 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet var collectionViewPlaylist: UICollectionView!
     private let videoFocusGuide = UIFocusGuide()
     var originalImageFrame:CGRect!
+    var playlistIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ViewManager.sharedInstance.activeView = self
         
-        loadProducts()
+        loadProducts({ (success) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.initPlay()
+                self.setupPlaylistView()
+            })
+        })
         
         addSwipeControls()
-     
+        
         createFocusGuide()
         
         self.collectionView.backgroundColor = UIColor.clearColor()
@@ -59,7 +65,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         
         firstFocusGuide.preferredFocusedView = self.buyButton
         
-        self.playerView.addLayoutGuide(videoFocusGuide)
+        self.view.addLayoutGuide(videoFocusGuide)
         self.videoFocusGuide.preferredFocusedView = self.collectionViewPlaylist
     }
     
@@ -72,45 +78,34 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.view.addGestureRecognizer(swipeRecognizerDown)
     }
     
-    func loadProducts(){
-        if self.categorySelected != nil {
-            CloudKitManager.SharedInstance.getProductsByCategory(self.categorySelected!, completion: { (products, error) in
-                if error == nil{
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.playlist = products!
-                        self.InitPlay()
-                        self.setNotificationCenter()
-                        self.setupPlaylistView()
-                    })
+    func loadProducts(completionHandler: (success:Bool) -> Void){
+        //if self.actualProduct != nil {
+        CloudKitManager.SharedInstance.getProductsByCategory(self.categorySelected!, completion: { (products, error) in
+            if error == nil{
+                self.playlist = products
+                if self.actualProduct != nil{
+                    self.playlist.removeAtIndex(self.playlist.indexOf({$0.name == self.actualProduct!.name})!)
+                    self.playlist.insert(self.actualProduct!, atIndex: 0)
                 }
-                else{
-                    print(error?.localizedDescription)
-                }
-            })
-        }else{
-            CloudKitManager.SharedInstance.getHighlightProducts { (products, erro) in
-                if erro == nil{
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.playlist = products!
-                        self.InitPlay()
-                        self.setNotificationCenter()
-                        self.setupPlaylistView()
-                    })
-                }
-                else{
-                    print(erro?.localizedDescription)
-                }
+                completionHandler(success: true)
             }
-        }
+            else{
+                print(error?.localizedDescription)
+            }
+        })
+        //}
     }
-
+    
     func setNotificationCenter(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playNextVideo), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerLayer.player?.currentItem)
+        
     }
     
     func setupPlaylistView(){
         self.playlistItems = self.playlist!.count
         self.collectionViewPlaylist.reloadData()
+        self.setNeedsFocusUpdate()
+        
     }
     
     @IBAction func buyButtonAction(sender: AnyObject) {
@@ -136,7 +131,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                     ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: retry)
                 })
             }
-        
+            
         }
         
         ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: completion)
@@ -151,15 +146,15 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
-            if isPlaying && self.playerView.areFocus {
-                pauseVideo()
-                isPlaying = false
-                return
-            }
-            if !isPlaying && self.playerView.areFocus{
-                playVideo()
-                isPlaying = true
-            }
+        if isPlaying && self.playerView.areFocus {
+            pauseVideo()
+            isPlaying = false
+            return
+        }
+        if !isPlaying && self.playerView.areFocus{
+            playVideo()
+            isPlaying = true
+        }
     }
     
     func setDetails(){
@@ -247,7 +242,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                 self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height-300, width: self.view.frame.width, height: 300)
                 },completion:{(success) in
                     print(self.viewPlaylist.frame)
-                })
+            })
             self.playlistActive = true
             self.updateFocusIfNeeded()
         }
@@ -259,7 +254,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         videoFocusGuide.heightAnchor.constraintEqualToConstant(100).active = true
         videoFocusGuide.widthAnchor.constraintEqualToConstant(self.view.frame.width).active = true
     }
-
+    
     func TurnOffVideoFocusGuide(){
         videoFocusGuide.enabled = false
         videoFocusGuide.leftAnchor.constraintEqualToAnchor(self.view.topAnchor).active = false
@@ -275,28 +270,31 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.playerLayer.player?.pause()
     }
     
-    func InitPlay(){
+    func removeEndVideoNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerLayer.player?.currentItem)
+    }
+    
+    func initPlay(){
         if self.playlist.count != 0 {
-            self.actualProduct = self.playlist.first
+            self.actualProduct = self.playlist[playlistIndex]
+            playlistIndex = playlistIndex.successor()
             let url = NSURL(string: (self.actualProduct?.video)!)
+            if self.playerLayer != nil{
+                removeEndVideoNotification()
+                self.playerLayer.removeFromSuperlayer()
+            }
             self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
             self.playerView.layer.addSublayer(self.playerLayer)
-            self.playlist.removeFirst()
+            self.setNotificationCenter()
             playVideo()
             setFullScreen()
             setDetails()
         }
     }
     
-    @objc func playNextVideo(){
-        if self.isFullScreen && self.playlist.count != 0 {
-            self.actualProduct = self.playlist.first
-            let url = NSURL(string: (self.actualProduct?.video)!)
-            self.playerLayer = nil
-            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
-            self.playlist.removeFirst()
-            playVideo()
-            setDetails()
+    func playNextVideo(){
+        if self.isFullScreen && playlistIndex < playlist.count{
+            initPlay()
         }
     }
     
@@ -329,29 +327,29 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == self.collectionView{
-        let cellFrame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
-        if imageView == nil{
-            let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (self.actualProduct?.photos![indexPath.row])!)!)!)
-            self.imageView = UIImageView(image: image)
-            let pointInSuperview = self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath))
-            self.imageView?.frame = cellFrame!
-            originalImageFrame = self.imageView?.frame
-            self.imageView?.frame.origin = pointInSuperview
-            UIView.animateWithDuration(0.5, animations: {
-                self.imageView!.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-                },completion: { (sucess) in
-                    self.setFullScreenImage()
-            })
-            self.view.addSubview(self.imageView!)
-        }else{
-            UIView.animateWithDuration(0.5, animations: {
-                self.imageView!.frame = CGRectMake(self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).x,self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).y,self.originalImageFrame.width,self.originalImageFrame.height)
-                },completion: { (sucess) in
-                    self.imageView?.removeFromSuperview()
-                    self.imageView = nil
-                    self.exitFullScreen()
-            })
-        }
+            let cellFrame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
+            if imageView == nil{
+                let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (self.actualProduct?.photos![indexPath.row])!)!)!)
+                self.imageView = UIImageView(image: image)
+                let pointInSuperview = self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath))
+                self.imageView?.frame = cellFrame!
+                originalImageFrame = self.imageView?.frame
+                self.imageView?.frame.origin = pointInSuperview
+                UIView.animateWithDuration(0.5, animations: {
+                    self.imageView!.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                    },completion: { (sucess) in
+                        self.setFullScreenImage()
+                })
+                self.view.addSubview(self.imageView!)
+            }else{
+                UIView.animateWithDuration(0.5, animations: {
+                    self.imageView!.frame = CGRectMake(self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).x,self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).y,self.originalImageFrame.width,self.originalImageFrame.height)
+                    },completion: { (sucess) in
+                        self.imageView?.removeFromSuperview()
+                        self.imageView = nil
+                        self.exitFullScreen()
+                })
+            }
         }
     }
     
