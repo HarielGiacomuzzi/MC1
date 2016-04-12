@@ -20,13 +20,13 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     var highlightedProducts = [Product]()
     var productSelected:Product!
     var categorySelected = "Fitness"
-    var carouselTimer = NSTimer()
-    
-    
+    var carouselTimer = NSTimer()    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
         
         hlCollectionView.delegate = self
         hlCollectionView.dataSource = self
@@ -57,10 +57,12 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
         }
     }
     
+    
     func nextHlItem(){
-        let midPoint = CGPointMake(1900,hlCollectionView.frame.midY)
-        print(midPoint)
+        let midPoint = CGPointMake(hlCollectionView.bounds.width*2,hlCollectionView.frame.midY)
+        print("midpoint",midPoint)
         hlCollectionView.scrollToItemAtIndexPath(hlCollectionView.indexPathForItemAtPoint(midPoint)!, atScrollPosition: .None, animated: true)
+        self.setNeedsFocusUpdate()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

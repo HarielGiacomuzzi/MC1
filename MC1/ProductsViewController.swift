@@ -90,6 +90,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
         pauseVideo()
+        actualProduct = nil
     }
     
     func addSwipeControls(){
@@ -179,7 +180,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         if self.playerView.frame != self.view.frame{
             setFullScreen()
         }else{
-            exitFullScreen()
+            exitFullScreen(updateFocus: true)
         }
     }
     
@@ -231,7 +232,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         self.isFullScreen = true
     }
     
-    func exitFullScreen(){
+    func exitFullScreen(updateFocus updateFocus: Bool){
         self.playerView.frame = CGRect(x: 750, y: 190, width: 1100, height: 525)
         self.playerLayer.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
         self.collectionView.hidden = false
@@ -251,7 +252,9 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.imageView?.frame = CGRect(x: 0, y: 0, width: 1100, height: 525)
         }
         self.isFullScreen = false
-        self.setNeedsFocusUpdate()
+        if updateFocus{
+            self.setNeedsFocusUpdate()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -265,16 +268,16 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func swipedDown() {
-        if self.playerView.frame == self.view.frame && playlistActive {
+        if self.playerLayer.frame == self.view.frame && playlistActive {
             TurnOffVideoFocusGuide()
             UIView.animateWithDuration(2, animations: {
                 self.viewPlaylist.frame = CGRect(x: 0, y: self.view.frame.height+300, width: self.view.frame.width, height: 200)
+                },completion:{(success) in
+                    self.playlistActive = false
+                    self.viewPlaylist.hidden = true
+                    self.setNeedsFocusUpdate()
             })
-            self.playlistActive = false
-            self.viewPlaylist.hidden = true
-            self.updateFocusIfNeeded()
         }
-        
     }
     
     func swipedUp() {
@@ -318,6 +321,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
             self.actualProduct = self.playlist[playlistIndex]
             playlistIndex = playlistIndex.successor()
             let url = NSURL(string: (self.actualProduct?.video)!)
+            
             if self.playerLayer != nil{
                 removeEndVideoNotification()
                 self.playerLayer.removeFromSuperlayer()
@@ -386,9 +390,10 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                 UIView.animateWithDuration(0.5, animations: {
                     self.imageView!.frame = CGRectMake(self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).x,self.view.convertPoint(CGPointZero, fromView:collectionView.cellForItemAtIndexPath(indexPath)).y,self.originalImageFrame.width,self.originalImageFrame.height)
                     },completion: { (sucess) in
+                        self.exitFullScreen(updateFocus: false)
                         self.imageView?.removeFromSuperview()
                         self.imageView = nil
-                        self.exitFullScreen()
+                        
                 })
             }
         

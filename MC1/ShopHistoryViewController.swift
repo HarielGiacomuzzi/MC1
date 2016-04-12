@@ -22,7 +22,7 @@ class ShopHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         let label = UILabel(frame: CGRect(x: 140, y: 77, width: 1199, height: 68))
         label.font = UIFont(name: "Menlo", size: 57)
         label.textColor = UIColor(red: 45/255, green: 91/255, blue: 148/255, alpha: 1)
-        label.text = "Historic"
+        label.text = "Histórico"
         self.view.addSubview(label)
         
         self.tableView = UITableView(frame: tableViewFrame, style: UITableViewStyle.Grouped)

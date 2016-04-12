@@ -5,7 +5,25 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Menu View Controller-->
+        <scene sceneID="9Qu-rC-lMp">
+            <objects>
+                <tabBarController id="K76-5H-D4V" customClass="MenuViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Ipu-q7-LPZ">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="kwK-bt-4U0"/>
+                        <segue destination="PD5-Ov-aRn" kind="relationship" relationship="viewControllers" id="jaX-jO-SGJ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I21-QO-P4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1620" y="339"/>
+        </scene>
+        <!--Catálogo-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
@@ -40,7 +58,7 @@
                                                     <rect key="frame" x="0.0" y="26" width="800" height="574"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Esteira Ergométrica Vitality" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-gM-epI">
-                                                            <rect key="frame" x="40" y="449" width="750" height="135"/>
+                                                            <rect key="frame" x="40" y="380" width="500" height="190"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                             <color key="textColor" red="0.13725490196078433" green="0.27843137254901962" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -124,8 +142,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybc-QY-Rmd">
-                                <rect key="frame" x="106" y="702" width="187" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categorias" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybc-QY-Rmd">
+                                <rect key="frame" x="106" y="702" width="187" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -139,6 +157,7 @@
                             <constraint firstItem="OHU-Hf-vco" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rht-qX-iX6"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Catálogo" id="Gkq-aL-S1X"/>
                     <connections>
                         <outlet property="categoriesCollectionView" destination="OHU-Hf-vco" id="0ut-F8-mMA"/>
                         <outlet property="hlCollectionView" destination="sZA-hf-jYs" id="ea6-Zp-SaG"/>
@@ -147,9 +166,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="842" y="562"/>
+            <point key="canvasLocation" x="836" y="865"/>
         </scene>
-        <!--Shop History View Controller-->
+        <!--Histórico-->
         <scene sceneID="PJI-Pa-JXG">
             <objects>
                 <viewController id="PD5-Ov-aRn" customClass="ShopHistoryViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
@@ -161,10 +180,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Histórico" id="GHe-Ms-tie"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xl5-mu-BZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1748" y="-571"/>
+            <point key="canvasLocation" x="836" y="-513"/>
         </scene>
         <!--Products View Controller-->
         <scene sceneID="v91-N3-4uf">
@@ -262,7 +282,7 @@
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Qr-Ib-HnF">
                                             <rect key="frame" x="8" y="8" width="1904" height="284"/>
                                             <color key="backgroundColor" red="0.71738860709594743" green="0.78522450125407905" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5V3-hl-HI6">
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="30" minimumInteritemSpacing="30" id="5V3-hl-HI6">
                                                 <size key="itemSize" width="315" height="260"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -325,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amT-K6-oCC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2982" y="627"/>
+            <point key="canvasLocation" x="2998" y="865"/>
         </scene>
     </scenes>
     <resources>

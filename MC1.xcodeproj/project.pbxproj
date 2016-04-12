@@ -37,6 +37,7 @@
 		DB58BF1A1C9C59670094EE71 /* MC1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF191C9C59670094EE71 /* MC1Tests.swift */; };
 		DB58BF251C9C59670094EE71 /* MC1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB58BF241C9C59670094EE71 /* MC1UITests.swift */; };
 		F20D1EBB1CB422F70036DC50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F20597E31CB2D39700D429F9 /* Assets.xcassets */; };
+		F21331841CBD8DD4000C370B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21331831CBD8DD4000C370B /* MenuViewController.swift */; };
 		F257DA6B1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F257DA6A1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift */; };
 		F257DA711CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F257DA701CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift */; };
 		F257DA731CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F257DA721CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift */; };
@@ -114,6 +115,7 @@
 		DB58BF241C9C59670094EE71 /* MC1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MC1UITests.swift; sourceTree = "<group>"; };
 		DB58BF261C9C59670094EE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F20597E31CB2D39700D429F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F21331831CBD8DD4000C370B /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		F257DA6A1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightCollectionViewCell.swift; sourceTree = "<group>"; };
 		F257DA701CADA45400E194E8 /* CenterCellCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterCellCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		F257DA721CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				8495D2371CB8242800A1227F /* ShopHistoryProductTableViewCell.swift */,
 				84D037BF1CBC07DD00FCEB32 /* ShopHistoryViewController.swift */,
 				DB58BF061C9C59670094EE71 /* ViewController.swift */,
+				F21331831CBD8DD4000C370B /* MenuViewController.swift */,
 				F20597E31CB2D39700D429F9 /* Assets.xcassets */,
 				DB58BF0B1C9C59670094EE71 /* Main.storyboard */,
 				DB58BF081C9C59670094EE71 /* MC1.xcdatamodeld */,
@@ -557,6 +560,7 @@
 				DB2476111CA9B52C00E0B310 /* CloudKitManager.swift in Sources */,
 				DB1191251CAC64E400766057 /* Shop.swift in Sources */,
 				DB11918B1CB4313900766057 /* PlayerView.swift in Sources */,
+				F21331841CBD8DD4000C370B /* MenuViewController.swift in Sources */,
 				DB58BF051C9C59670094EE71 /* AppDelegate.swift in Sources */,
 				F257DA6B1CAD8C0900E194E8 /* HighlightCollectionViewCell.swift in Sources */,
 				F257DA731CADAF2D00E194E8 /* CategoriesCollectionViewCell.swift in Sources */,
