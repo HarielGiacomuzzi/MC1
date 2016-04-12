@@ -142,12 +142,12 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBAction func buyButtonAction(sender: AnyObject) {
         let retry : (NSError?, Shop?) -> Void = {error, shop in
             if error == nil{
-                ViewManager.sharedInstance.notification("A compra do produto \(self.actualProduct?.name!) foi concluída com sucesso")
+                ViewManager.sharedInstance.notification(String(format: "A compra do produto %@ foi concluída com sucesso",self.actualProduct!.name!))
             }else{
                 ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: { (error, shop) in
                     if error == nil {
                         print(error!.localizedDescription)
-                        ViewManager.sharedInstance.displayErrorMessage("Ooops\nA compra do produto \(self.actualProduct?.name!) não pode ser concluída.\n", retry: nil)
+                        ViewManager.sharedInstance.displayErrorMessage(String(format:"Ooops\nA compra do produto %@ não pode ser concluída.",self.actualProduct!.name!), retry: nil)
                     }
                 })
             }
@@ -155,10 +155,10 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         
         let completion :(NSError?, Shop?) -> Void = {error,shop in
             if error == nil {
-                ViewManager.sharedInstance.notification("A compra do produto \(self.actualProduct?.name!) foi concluída com sucesso")
+                ViewManager.sharedInstance.notification(String(format: "A compra do produto %@ foi concluída com sucesso",self.actualProduct!.name!))
             }else {
                 print(error!.localizedDescription)
-                ViewManager.sharedInstance.displayErrorMessage("Ooops\nA compra do produto \(self.actualProduct?.name!) não pode ser concluída.\nDeseja tentar novamente ? ", retry: { Void in
+                ViewManager.sharedInstance.displayErrorMessage(String(format:"Ooops\nA compra do produto %@ não pode ser concluída.",self.actualProduct!.name!), retry: { Void in
                     ShoppingManager.sharedInstance.realizeNewShop(self.actualProduct!, completionHandler: retry)
                 })
             }
@@ -191,7 +191,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
     func setDetails(){
         self.tittleLabel.text = self.actualProduct?.name
         self.textView.text = self.actualProduct?.desc
-        self.buyButton.titleLabel?.text = "R$ \(self.actualProduct?.price!)"
+        self.buyButton.setTitle(String(format: "R$ %.2f" ,self.actualProduct!.price!), forState: .Normal)
         self.numberOfPhotos = (self.actualProduct?.photos?.count)!
         self.collectionView.reloadData()
     }
