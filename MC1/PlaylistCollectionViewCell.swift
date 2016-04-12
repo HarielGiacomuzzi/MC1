@@ -11,4 +11,5 @@ import UIKit
 class PlaylistCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var image: UIImageView!
+    var product : Product!
 }

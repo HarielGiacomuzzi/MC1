@@ -317,8 +317,16 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         }
     }
     
-    @objc func playNextVideo(){
-        if self.isFullScreen && self.playlist.count != 0 {
+    @objc func playNextVideo(product : Product?){
+        if product != nil {
+            self.actualProduct = product
+            let url = NSURL(string: (self.actualProduct?.video)!)
+            self.playerLayer = nil
+            self.playerLayer = AVPlayerLayer(player: AVPlayer(playerItem: AVPlayerItem(URL: url!)))
+            self.playlist.removeFirst()
+            playVideo()
+            setDetails()
+        } else if self.isFullScreen && self.playlist.count != 0 {
             self.actualProduct = self.playlist.first
             let url = NSURL(string: (self.actualProduct?.video)!)
             self.playerLayer = nil
@@ -343,6 +351,7 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
         if collectionView == self.collectionViewPlaylist{
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PlaylistCell", forIndexPath: indexPath) as! PlaylistCollectionViewCell
             cell.image.image = UIImage(data: NSData(contentsOfURL: NSURL(string: self.playlist[indexPath.row].photos![0])!)!)
+            cell.product = self.playlist[indexPath.row]
             return cell
         }else{
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! detailsCell
@@ -380,6 +389,8 @@ class ProductsViewController: UIViewController, UICollectionViewDataSource, UICo
                     self.exitFullScreen()
             })
         }
+        }else if collectionView == self.collectionViewPlaylist{
+            self.playNextVideo((collectionView.cellForItemAtIndexPath(indexPath) as! PlaylistCollectionViewCell).product)
         }
     }
     
