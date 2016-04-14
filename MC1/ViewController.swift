@@ -21,12 +21,12 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     var productSelected:Product!
     var categorySelected = "Fitness"
     var carouselTimer = NSTimer()    
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
         
         hlCollectionView.delegate = self
         hlCollectionView.dataSource = self
@@ -118,7 +118,6 @@ class ViewController: UIViewController,UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        
         if collectionView == hlCollectionView{
             if let prevCell = context.previouslyFocusedView as? HighlightCollectionViewCell {
                 prevCell.changeVisibilityNameView()

@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="p8K-yc-2wH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Menu View Controller-->
-        <scene sceneID="9Qu-rC-lMp">
-            <objects>
-                <tabBarController id="K76-5H-D4V" customClass="MenuViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Ipu-q7-LPZ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="0.0"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="kwK-bt-4U0"/>
-                        <segue destination="PD5-Ov-aRn" kind="relationship" relationship="viewControllers" id="jaX-jO-SGJ"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I21-QO-P4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1620" y="339"/>
-        </scene>
-        <!--Catálogo-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
@@ -157,7 +139,6 @@
                             <constraint firstItem="OHU-Hf-vco" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rht-qX-iX6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Catálogo" id="Gkq-aL-S1X"/>
                     <connections>
                         <outlet property="categoriesCollectionView" destination="OHU-Hf-vco" id="0ut-F8-mMA"/>
                         <outlet property="hlCollectionView" destination="sZA-hf-jYs" id="ea6-Zp-SaG"/>
@@ -168,7 +149,119 @@
             </objects>
             <point key="canvasLocation" x="836" y="865"/>
         </scene>
-        <!--Histórico-->
+        <!--Item 2-->
+        <scene sceneID="j9v-Nb-R8f">
+            <objects>
+                <viewController id="HDF-BS-alJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cw6-sM-KJB"/>
+                        <viewControllerLayoutGuide type="bottom" id="oZ2-sh-YYZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qch-b9-RRG">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HV-nL-IVZ">
+                                <rect key="frame" x="403" y="369" width="195" height="86"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="Iwk-0P-ICx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6f9-hf-rfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3839" y="914"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="IXY-8l-szl">
+            <objects>
+                <viewController id="JHL-TH-4OB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0Wq-l3-Wen"/>
+                        <viewControllerLayoutGuide type="bottom" id="quX-0h-99L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eON-e9-rm6">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xc-4a-UAX">
+                                <rect key="frame" x="474" y="735" width="195" height="86"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="5mC-ec-yyY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tC7-6p-DbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3839" y="-227"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="SZa-mH-Mtv">
+            <objects>
+                <tabBarController id="p35-5T-amx" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="gUa-Kf-WHh">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="JHL-TH-4OB" kind="relationship" relationship="viewControllers" id="r1p-FI-dyW"/>
+                        <segue destination="HDF-BS-alJ" kind="relationship" relationship="viewControllers" id="Wvo-EO-rJ2"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9cL-oe-75E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5979" y="344"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="jDe-p0-ixJ">
+            <objects>
+                <viewController id="p8K-yc-2wH" customClass="MenuViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GGv-ka-8W4"/>
+                        <viewControllerLayoutGuide type="bottom" id="s55-8O-kYt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Q8I-D9-w3s">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cpm-yU-rAD">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="embed" id="92A-3y-1iF"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EN9-nr-m63">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <connections>
+                                    <segue destination="PD5-Ov-aRn" kind="embed" id="QXN-l6-RYl"/>
+                                </connections>
+                            </containerView>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j26-Bq-rgu">
+                                <rect key="frame" x="0.0" y="-140" width="1920" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Categorias" id="MdW-Bd-PgG"/>
+                                    <tabBarItem title="Histórico" id="ocQ-aR-nqu"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="catalogContainerView" destination="cpm-yU-rAD" id="ehs-qb-2co"/>
+                        <outlet property="historyContainerView" destination="EN9-nr-m63" id="YWN-H4-cMU"/>
+                        <outlet property="menuTabbar" destination="j26-Bq-rgu" id="NPj-b8-NxI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jaE-eE-L8w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2214" y="1332"/>
+        </scene>
+        <!--Shop History View Controller-->
         <scene sceneID="PJI-Pa-JXG">
             <objects>
                 <viewController id="PD5-Ov-aRn" customClass="ShopHistoryViewController" customModule="MC1" customModuleProvider="target" sceneMemberID="viewController">
@@ -180,7 +273,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Histórico" id="GHe-Ms-tie"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xl5-mu-BZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
