@@ -45,14 +45,16 @@ class MenuViewController: UIViewController, UITabBarDelegate {
     }
     
     override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        if context.nextFocusedView!.isDescendantOfView(menuTabbar){
-            UIView.animateWithDuration(1, animations: {
-                self.menuTabbar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.menuTabbar.frame.height)
-                },completion: nil)
-        }else{
-            UIView.animateWithDuration(1, animations: {
-            self.menuTabbar.frame = CGRect(x: 0, y: -self.menuTabbar.frame.height, width: self.view.frame.width, height: self.menuTabbar.frame.height)
-        },completion: nil)
+        if context.nextFocusedView != nil{
+            if context.nextFocusedView!.isDescendantOfView(menuTabbar){
+                UIView.animateWithDuration(1, animations: {
+                    self.menuTabbar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.menuTabbar.frame.height)
+                    },completion: nil)
+            }else{
+                UIView.animateWithDuration(1, animations: {
+                    self.menuTabbar.frame = CGRect(x: 0, y: -self.menuTabbar.frame.height, width: self.view.frame.width, height: self.menuTabbar.frame.height)
+                    },completion: nil)
+            }
         }
     }
     
@@ -81,7 +83,7 @@ class MenuViewController: UIViewController, UITabBarDelegate {
                     print("deve mudar o foco para a tab bar")
                     self.catalogContainerView.resignFirstResponder()
                     self.historyContainerView.resignFirstResponder()
-                })
+            })
         }
     }
     
