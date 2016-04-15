@@ -16,8 +16,8 @@ class CloudKitManager: NSObject {
     let RECORD_TYPE_PRODUTOS = "Produto"
     let RECORD_TYPE_COMPRA = "Compra"
     
-    let publicDB: CKDatabase = CKContainer.defaultContainer().publicCloudDatabase
-    let privateDB: CKDatabase = CKContainer.defaultContainer().privateCloudDatabase
+    let publicDB: CKDatabase = CKContainer(identifier: "iCloud.com.giacomuzzi.MC1").publicCloudDatabase
+    let privateDB: CKDatabase = CKContainer(identifier: "iCloud.com.giacomuzzi.MC1").privateCloudDatabase
     static let SharedInstance = CloudKitManager()
     
     func getProductsByCategory(category : String, completion : ([Product]?, NSError? )-> Void){
